@@ -102,8 +102,6 @@ export default function AgentTabs() {
     go(n);
   };
 
-  const dur = total * STEP_MS + 400 + HOLD_MS;
-
   return (
     <div ref={wrapRef}>
       <div className="at-tabs" role="tablist" aria-label="Agents" ref={rowRef}>
@@ -120,7 +118,6 @@ export default function AgentTabs() {
           >
             <span className="at-ico"><ag.Icon aria-hidden /></span>
             {ag.name}
-            {n === i && auto && seen && <span className="at-prog" key={`${i}`} style={{ animationDuration: `${dur}ms` }} aria-hidden />}
           </button>
         ))}
       </div>
