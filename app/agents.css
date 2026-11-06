@@ -273,7 +273,7 @@
 
 /* ---------- one dot grid for every stage on the page: light, soft grey, but visible ---------- */
 .stage {
-  background-color: #f7f7f5;
-  background-image: radial-gradient(circle, #e6e6e2 1px, transparent 1.4px);
+  background-color: #fcfcfb;
+  background-image: radial-gradient(circle, #ececea 1px, transparent 1.4px);
   background-size: 12px 12px; background-position: 6px 6px;
 }
