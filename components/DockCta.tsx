@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { LiquidButton } from "./Icons";
+import { WhatsAppIcon } from "./Icons";
+import { WA_URL } from "@/lib/site";
 
-/** Sticky "Start chat", stepping aside while the hero's or the final card's buttons are on screen. */
+/** A round WhatsApp-green button, bottom right. Appears once the hero's Start chat scrolls away; hides over the final card's buttons. */
 export default function DockCta() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    // Steps aside while the hero's or the final card's own buttons are on screen.
     const els = [...document.querySelectorAll(".hero-ctas, .final .ctas")];
     if (!els.length) return;
     const seen = new Map<Element, boolean>();
@@ -21,8 +21,16 @@ export default function DockCta() {
   }, []);
 
   return (
-    <div className={`dock${show ? " show" : ""}`} aria-hidden={!show}>
-      <LiquidButton tabIndex={show ? 0 : -1} />
-    </div>
+    <a
+      className={`wa-fab${show ? " show" : ""}`}
+      href={WA_URL}
+      target="_blank"
+      rel="noopener"
+      aria-label="Start chat on WhatsApp"
+      aria-hidden={!show}
+      tabIndex={show ? 0 : -1}
+    >
+      <WhatsAppIcon />
+    </a>
   );
 }

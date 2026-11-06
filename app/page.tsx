@@ -54,8 +54,7 @@ export default function Home() {
           </h1>
           <p className="lede">Every enquiry handled until it&apos;s paid. Inside your ERP.</p>
           <div className="ctas hero-ctas">
-            <LiquidButton />
-            <a className="btn btn-glass" href="#platform">See how it works</a>
+            <LiquidButton size="wide" />
           </div>
           <DashPreview />
           <p className="dash-cap">Your admin panel, with sample data.</p>

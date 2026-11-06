@@ -223,3 +223,21 @@ details.faq[open]::details-content { height: auto; }
 .hero-ctas .btn-liquid { justify-content: center; padding: 0 46px 0 16px; font-size: 15px; }
 .hero-ctas .btn { padding: 0 14px; }
 .hero-ctas .btn-liquid { filter: drop-shadow(0 12px 18px rgba(17, 17, 17, 0.28)) drop-shadow(0 2px 4px rgba(17, 17, 17, 0.18)); }
+
+/* ---------- 6 Nov, pass 5: one full-width Start chat, green WhatsApp float ---------- */
+.hero-ctas { flex-direction: column; align-items: center; }
+.hero-ctas > * { flex: none; width: 100%; max-width: none; }
+.hero-ctas .btn-liquid { padding: 0 58px; }
+body { padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+.wa-fab {
+  position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 25;
+  width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: #25d366;
+  box-shadow: 0 12px 24px -8px rgba(37, 211, 102, 0.6), 0 4px 10px -2px rgba(17, 17, 17, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  opacity: 0; transform: translateY(16px) scale(0.85); pointer-events: none;
+  transition: opacity 0.25s, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.wa-fab svg { width: 28px; height: 28px; fill: currentColor; }
+.wa-fab.show { opacity: 1; transform: none; pointer-events: auto; }
+.wa-fab:active { transform: scale(0.94); }
+@media (prefers-reduced-motion: reduce) { .wa-fab { transition: opacity 0.2s; } }
