@@ -1,3 +1,3 @@
-/* Layout from the v2 HTML (base.css), skinned in the live anuma.co.in language (live.css). */
-@import "./base.css";
-@import "./live.css";
+/* The live anuma.co.in component system (system.css) plus the v2 HTML frame: header, hero, dashboard, final card (frame.css). */
+@import "./system.css";
+@import "./frame.css";

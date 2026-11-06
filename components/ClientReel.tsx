@@ -1,60 +1,56 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight } from "./PixelIcons";
 import { PlayIcon } from "./Icons";
 
-type Vid = {
-  img: string;
+// "From our clients": the live site's testimonial card, one at a time, arrows and dots, next every 10 seconds.
+// The stills stand in until the client videos are recorded; add `video` to play one in place.
+type T = {
+  still: string;
   pos: string;
-  chip: string;
+  agent: string;
   dur: string;
   quote?: string;
   name: string;
   role: string;
-  todo?: boolean;
+  face?: { src: string; focus: string; zoom: number };
+  video?: string;
 };
 
-// Stills are placeholders until the 9:16 client videos are recorded.
-const VIDS: Vid[] = [
-  { img: "/clients/nuhome.jpg", pos: "30% 50%", chip: "Order agent", dur: "0:42", quote: "Our retailers send photos, chits and messages. Now every one of them becomes an order in our ERP, without anyone typing it.", name: "Aman Goenka", role: "[Designation] · NuHome" },
-  { img: "/clients/stuffcool.jpg", pos: "75% 50%", chip: "Distribute agent", dur: "0:38", quote: "Our distributors get today's stock every morning and send orders back the same way. My team just follows up.", name: "Dhaval Budhdeo", role: "[Designation] · Stuffcool" },
-  { img: "/clients/axis.jpg", pos: "40% 50%", chip: "Quote agent", dur: "0:45", name: "[Name]", role: "[Designation] · Axis Electricals", todo: true },
-  { img: "/clients/malmo.jpg", pos: "45% 50%", chip: "Custom agent", dur: "0:40", name: "[Name]", role: "[Designation] · Malmo", todo: true },
+const ITEMS: T[] = [
+  {
+    still: "/clients/nuhome.jpg", pos: "30% 50%", agent: "Order agent", dur: "0:42",
+    quote: "“Our retailers send photos, chits and messages. Now every one of them becomes an order in our ERP, without anyone typing it.”",
+    name: "Aman Goenka", role: "[Designation] · NuHome",
+    face: { src: "/people/aman-goenka.png", focus: "50% 30%", zoom: 1.9 },
+  },
+  {
+    still: "/clients/stuffcool.jpg", pos: "75% 50%", agent: "Distribute agent", dur: "0:38",
+    quote: "“Our distributors get today's stock every morning and send orders back the same way. My team just follows up.”",
+    name: "Dhaval Budhdeo", role: "[Designation] · Stuffcool",
+    face: { src: "/people/dhaval-budhdeo.jpg", focus: "52% 36%", zoom: 1.45 },
+  },
+  { still: "/clients/axis.jpg", pos: "40% 50%", agent: "Quote agent", dur: "0:45", name: "[Name]", role: "[Designation] · Axis Electricals" },
+  { still: "/clients/malmo.jpg", pos: "45% 50%", agent: "Custom agent", dur: "0:40", name: "[Name]", role: "[Designation] · Malmo" },
 ];
 
+function initials(name: string) {
+  return name.startsWith("[") ? "" : name.split(" ").map((w) => w[0]).join("");
+}
+
 export default function ClientReel() {
-  const reelRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
+  const [i, setI] = useState(0);
   const [played, setPlayed] = useState<number | null>(null);
+  const [paused, setPaused] = useState(false);
+  const n = ITEMS.length;
+  const go = (d: number) => setI((v) => (v + d + n) % n);
 
   useEffect(() => {
-    const reel = reelRef.current;
-    if (!reel) return;
-    let raf = 0;
-    const upd = () => {
-      const mid = reel.scrollLeft + reel.clientWidth / 2;
-      let best = 0;
-      let bd = Infinity;
-      [...reel.children].forEach((el, i) => {
-        const v = el as HTMLElement;
-        const d = Math.abs(v.offsetLeft + v.offsetWidth / 2 - mid);
-        if (d < bd) {
-          bd = d;
-          best = i;
-        }
-      });
-      setActive(best);
-    };
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(upd);
-    };
-    reel.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      reel.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
+    if (paused) return;
+    const t = setTimeout(() => go(1), 10000);
+    return () => clearTimeout(t);
+  }, [i, paused]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (played === null) return;
@@ -62,48 +58,73 @@ export default function ClientReel() {
     return () => clearTimeout(t);
   }, [played]);
 
-  const goTo = (i: number) => {
-    const reel = reelRef.current;
-    const el = reel?.children[i] as HTMLElement | undefined;
-    if (!reel || !el) return;
-    reel.scrollTo({ left: el.offsetLeft - (reel.clientWidth - el.offsetWidth) / 2, behavior: "smooth" });
-  };
+  // swipe
+  const [x0, setX0] = useState<number | null>(null);
 
   return (
-    <>
-      <div className="reel" ref={reelRef}>
-        {VIDS.map((v, i) => (
-          <figure className="vid" style={{ margin: 0 }} key={v.chip}>
-            <div className="frame">
-              <div className="img" style={{ backgroundImage: `url(${v.img})`, backgroundPosition: v.pos }} />
-              <span className="chip">{v.chip}</span>
-              <span className="dur">{v.dur}</span>
-              <button className="play" type="button" aria-label={`Play video, ${v.name}`} onClick={() => setPlayed(i)}>
-                <PlayIcon />
-              </button>
-              {played === i && <div className="played">Client video goes here (9:16, under a minute)</div>}
-              <figcaption className="who">
-                {v.quote && <q>{v.quote}</q>}
-                <b>{v.name}</b>
-                <span>{v.role}</span>
-                {v.todo && <span className="todo">Video to record</span>}
-              </figcaption>
-            </div>
-          </figure>
+    <div
+      className="tm"
+      onPointerEnter={() => setPaused(true)}
+      onPointerLeave={() => setPaused(false)}
+      onTouchStart={(e) => setX0(e.touches[0].clientX)}
+      onTouchEnd={(e) => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+        setX0(null);
+      }}
+    >
+      <button type="button" className="tm-arrow is-prev" onClick={() => go(-1)} aria-label="Previous client">
+        <ChevronLeft aria-hidden />
+      </button>
+      <div className="tm-view">
+        <div className="tm-track" style={{ transform: `translateX(-${i * 100}%)` }}>
+          {ITEMS.map((t, k) => (
+            <figure className="tm-card" key={t.agent} aria-hidden={k !== i || undefined} inert={k !== i}>
+              <div className="tm-video">
+                {t.video ? (
+                  <video src={t.video} controls preload="none" playsInline />
+                ) : (
+                  <>
+                    <div className="still" style={{ backgroundImage: `url(${t.still})`, backgroundPosition: t.pos }} />
+                    <span className="tm-chip btn btn-glass">{t.agent}</span>
+                    <span className="tm-dur">{t.dur}</span>
+                    <button type="button" className="tm-play" aria-label={`Play video, ${t.name}`} onClick={() => setPlayed(k)}>
+                      <PlayIcon />
+                    </button>
+                    {played === k && <div className="tm-played">Client video goes here (9:16, under a minute)</div>}
+                  </>
+                )}
+              </div>
+              <div className="tm-body">
+                {t.quote ? <blockquote className="t-quote" style={{ margin: 0 }}>{t.quote}</blockquote> : <span className="todo-flag">Video to record</span>}
+                <figcaption className="tm-by">
+                  <span className="tm-face" aria-hidden="true">
+                    {t.face ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img loading="lazy" src={t.face.src} alt="" style={{ objectPosition: t.face.focus, transformOrigin: t.face.focus, transform: `scale(${t.face.zoom})` }} />
+                    ) : (
+                      initials(t.name)
+                    )}
+                  </span>
+                  <span>
+                    {t.name}
+                    <small>{t.role}</small>
+                  </span>
+                </figcaption>
+              </div>
+            </figure>
+          ))}
+        </div>
+      </div>
+      <button type="button" className="tm-arrow is-next" onClick={() => go(1)} aria-label="Next client">
+        <ChevronRight aria-hidden />
+      </button>
+      <div className="tm-dots">
+        {ITEMS.map((t, k) => (
+          <button key={t.agent} type="button" className={k === i ? "is-on" : ""} onClick={() => setI(k)} aria-label={`Client ${k + 1} of ${n}`} />
         ))}
       </div>
-      <div className="dots" role="tablist" aria-label="Client videos">
-        {VIDS.map((v, i) => (
-          <i
-            key={v.chip}
-            className={i === active ? "on" : undefined}
-            role="tab"
-            aria-selected={i === active}
-            aria-label={v.name}
-            onClick={() => goTo(i)}
-          />
-        ))}
-      </div>
-    </>
+    </div>
   );
 }

@@ -1,0 +1,139 @@
+/* ============================================================================
+   The v2 HTML's frame, in the live language: centred tile header, hero with the
+   dashboard picture, the final photo card with the footer inside it, and the
+   always-on Start chat. Plus the few pieces the HTML copy needs on top of
+   system.css. Side margins: 16px everywhere.
+   ========================================================================== */
+:root { --pad: 16px; --section-y: 64px; }
+body { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: #fff; }
+
+/* the logo as the HTML draws it */
+.mark { display: inline-flex; align-items: center; gap: 4px; color: inherit; }
+.mark i { display: block; height: 10px; border-radius: 10px; background: currentColor; }
+.mark i:first-child { width: 10px; }
+.mark i:last-child { width: 26px; }
+
+/* ---------- header: one centred tile ---------- */
+.hdr {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: rgba(255, 255, 255, 0.8); -webkit-backdrop-filter: saturate(1.8) blur(16px); backdrop-filter: saturate(1.8) blur(16px);
+}
+.hdr .bar { display: flex; align-items: center; justify-content: center; height: 60px; }
+.tile {
+  display: grid; place-items: center; width: 44px; height: 36px; border-radius: 12px; background: var(--ink); color: #fff;
+  box-shadow: 0 8px 18px -10px rgba(17, 17, 17, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+.tile .mark i { height: 7px; } .tile .mark i:first-child { width: 7px; } .tile .mark i:last-child { width: 18px; }
+
+/* ---------- hero ---------- */
+.hero, .hero.wrap { padding: 44px var(--pad) 8px; text-align: center; }
+.hero h1 { margin-top: 22px; font-size: 42px; line-height: 1.1; letter-spacing: -0.035em; font-weight: 500; }
+.hero h1 em {
+  font-style: normal; padding: 0 2px; border-radius: 2px;
+  background: linear-gradient(transparent 62%, rgba(242, 181, 58, 0.45) 62%, rgba(242, 181, 58, 0.45) 92%, transparent 92%);
+}
+.hero .lede { font-size: 17px; line-height: 1.55; color: var(--ink-2); margin: 18px auto 0; max-width: 34ch; }
+
+/* the web app, scaled to fit the phone at a desktop aspect ratio */
+.dashwrap { margin-top: 30px; padding: 4px 0 18px; text-align: left; }
+.dashfit {
+  position: relative; width: 100%; aspect-ratio: 1180 / 700; overflow: hidden; border-radius: 12px; background: #fff;
+  box-shadow: 0 0 0 1px rgba(22, 22, 21, 0.06), 0 40px 80px -40px rgba(40, 50, 110, 0.35), 0 12px 24px -16px rgba(22, 22, 21, 0.18);
+}
+.dash-cap { font-size: 13px; color: var(--muted); text-align: center; margin-top: 2px; }
+.dw-logo .mark { color: #fff; gap: 2px; } .dw-logo .mark i { height: 4px; } .dw-logo .mark i:first-child { width: 4px; } .dw-logo .mark i:last-child { width: 10px; }
+
+/* ---------- section heads: one rhythm ---------- */
+.section { padding-block: var(--section-y) 0; }
+.head { gap: 10px; }
+.head .t-h2 { max-width: 16ch; }
+.head .t-lede { max-width: 34ch; }
+
+/* ---------- who it's for ---------- */
+.sv-txt { min-width: 0; }
+.notfit { margin-top: 12px; }
+
+/* ---------- agents: copy under the visual ---------- */
+.at-card { padding: 8px 8px 20px; }
+.at-card .at-frame { margin-top: 0; border-radius: 18px; }
+.at-tag { margin: 18px 12px 0; height: 28px; font-size: 12.5px; font-weight: 500; }
+.at-name { margin: 12px 12px 0; font-size: 24px; line-height: 30px; letter-spacing: -0.02em; font-weight: 500; }
+.at-hit { margin: 6px 12px 0; font: 400 16px/24px var(--font-sans); color: var(--ink-2); }
+.at-hit b { color: var(--ink); font-weight: 500; }
+.at-card .ticks { margin: 12px 12px 0; }
+.ticks { list-style: none; padding: 0; display: grid; gap: 8px; }
+.ticks li { position: relative; padding-left: 26px; font-size: 15px; line-height: 22px; color: var(--ink-2); }
+.ticks li::before {
+  content: ""; position: absolute; left: 0; top: 2px; width: 18px; height: 18px; border-radius: 50%; background: var(--stage);
+  -webkit-mask: none;
+}
+.ticks li::after {
+  content: ""; position: absolute; left: 6px; top: 6px; width: 6px; height: 9px; border: solid var(--ink); border-width: 0 1.6px 1.6px 0; transform: rotate(45deg);
+}
+
+/* ERP: the big logo tiles */
+.erp { margin-top: 40px; text-align: center; }
+.erp .t-h3 { font-size: 17px; }
+.erp-grid { margin-top: 16px; }
+
+/* ---------- team ---------- */
+.feat-body { display: grid; gap: 8px; justify-items: start; padding: 18px 10px 10px; }
+.feat-body .t-h3 { font-size: 20px; line-height: 26px; margin-top: 4px; }
+.feat-body .t-lede { margin: 0; }
+.feat-body .ticks { margin: 4px 0 0; }
+.feat-body .seg { width: 100%; margin-top: 6px; }
+.feat-body .stores { margin-top: 8px; }
+.feat-label { height: 28px; gap: 7px; font-size: 12.5px; font-weight: 500; background: #fff; }
+.feat-label i { width: 7px; height: 7px; border-radius: 50%; }
+.flowx { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.fs { min-width: 200px; text-align: center; font-size: 13px; font-weight: 500; background: #fff; border: 1px solid #ececec; border-radius: 12px; padding: 8px 12px; box-shadow: 0 8px 18px -14px rgba(30, 30, 40, 0.4); animation: rise 0.35s var(--ease) both; }
+.fs.cus { background: #fdeee6; color: #9a4a22; border-color: #f3cdb8; }
+.fa { color: var(--faint); font-weight: 600; transform: rotate(90deg); line-height: 1; }
+
+/* ---------- how we start: first orb in ink ---------- */
+.case-orb.is-first { color: #fff; background: radial-gradient(80% 60% at 50% 0%, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 70%), #1f1f1f; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 8px 18px -10px rgba(17, 17, 17, 0.55); animation: none; }
+
+/* ---------- questions: the live FAQ rows in one card ---------- */
+.faq-list { margin-top: 24px; border: 1px solid var(--line); border-radius: 24px; background: #fff; padding: 4px; }
+details.faq { border-radius: 18px; transition: background 0.2s; }
+details.faq + details.faq { border-top: 1px solid var(--line-soft); }
+details.faq:hover { background: #f8f3ec; }
+details.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 14px; list-style: none; cursor: pointer; font: 500 16px/23px var(--font-sans); color: var(--ink); }
+details.faq summary::-webkit-details-marker { display: none; }
+.faq-chevron { flex-shrink: 0; width: 18px; height: 18px; color: var(--ink-2); transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1), color 0.2s; }
+details.faq[open] .faq-chevron { transform: rotate(180deg); color: #c2652a; }
+details.faq p { padding: 0 14px 16px; margin-top: -6px; font-size: 15px; line-height: 23px; color: var(--muted); }
+details.faq::details-content { height: 0; overflow: hidden; transition: height 0.35s cubic-bezier(0.65, 0, 0.35, 1), content-visibility 0.35s allow-discrete; }
+details.faq[open]::details-content { height: auto; }
+
+/* ---------- final: the HTML's photo card, footer inside ---------- */
+.end-wrap { padding-top: var(--section-y); padding-bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
+.final { position: relative; isolation: isolate; overflow: hidden; border-radius: 24px; padding: 56px 22px 22px; text-align: center; color: #fff; background: #2b2a27; }
+.final .fimg { position: absolute; inset: 0; z-index: -2; background-size: cover; background-position: 50% 100%; }
+.final::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(20, 19, 16, 0.78) 0%, rgba(20, 19, 16, 0.45) 30%, rgba(20, 19, 16, 0) 46%, rgba(20, 19, 16, 0.3) 56%, rgba(20, 19, 16, 0.86) 70%, rgba(20, 19, 16, 0.92) 100%); }
+.final h2 { font-size: 32px; line-height: 1.1; letter-spacing: -0.03em; font-weight: 500; color: #fff; }
+.final > p { font-size: 18px; line-height: 1.5; color: rgba(255, 255, 255, 0.85); margin-top: 10px; }
+.final .ctas { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 28px; }
+.final .ctas > * { width: 100%; max-width: 300px; }
+.final .btn-liquid { color: var(--ink); }
+.final .btn-liquid .lq-pill, .final .btn-liquid .lq-dot { background: #fff; }
+.final .btn-liquid .lq-icon svg { fill: var(--ink); }
+.btn.gl {
+  color: #fff; border: 1px solid rgba(255, 255, 255, 0.45); font-weight: 500;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.1) 100%);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 10px 24px -14px rgba(0, 0, 0, 0.4);
+}
+.fcard-foot { margin-top: 220px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.25); text-align: left; }
+.fcard-foot .mark { color: #fff; }
+.fcard-foot nav { display: flex; flex-wrap: wrap; gap: 0 18px; margin-top: 8px; }
+.fcard-foot nav a { display: inline-flex; align-items: center; min-height: 40px; color: rgba(255, 255, 255, 0.92); font-size: 14px; font-weight: 500; }
+.fcard-foot p { font-size: 12.5px; color: rgba(255, 255, 255, 0.75); margin-top: 6px; }
+
+/* ---------- sticky Start chat: always on, as in the HTML ---------- */
+.dock.show { transform: translate(-50%, 0); }
+.dock .btn-liquid { padding: 0 50px 0 28px; }
+
+/* client card: the agent label reads over any photo */
+.tm-chip.btn-glass { background: rgba(20, 19, 16, 0.38); border-color: rgba(255, 255, 255, 0.35); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
