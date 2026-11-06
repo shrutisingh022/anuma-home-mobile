@@ -6,7 +6,7 @@ import TeamFeatures from "@/components/TeamFeatures";
 import DockCta from "@/components/DockCta";
 import Reveal from "@/components/Reveal";
 import { FaqList, Industries } from "@/components/Lists";
-import { LiquidButton, LiquidDefs, Mark } from "@/components/Icons";
+import { LiquidButton, LiquidDefs, Mark, WhatsAppIcon } from "@/components/Icons";
 import { CircleCheck, Lock, Server, Undo2 } from "@/components/PixelIcons";
 import { WA_URL } from "@/lib/site";
 
@@ -54,7 +54,10 @@ export default function Home() {
           </h1>
           <p className="lede">Every enquiry handled until it&apos;s paid. Inside your ERP.</p>
           <div className="ctas hero-ctas">
-            <LiquidButton size="wide" />
+            <a className="btn-start" href={WA_URL} target="_blank" rel="noopener">
+              Start chat
+              <WhatsAppIcon />
+            </a>
           </div>
           <DashPreview />
           <p className="dash-cap">Your admin panel, with sample data.</p>
@@ -187,7 +190,10 @@ export default function Home() {
             <h2>Tell us how you work.</h2>
             <p>Send us a message. We&apos;ll show you where to start.</p>
             <div className="ctas">
-              <LiquidButton size="wide" />
+              <a className="btn-start" href={WA_URL} target="_blank" rel="noopener">
+              Start chat
+              <WhatsAppIcon />
+            </a>
               <a className="btn gl" href="#platform">See how it works</a>
             </div>
             <div className="fcard-foot">

@@ -247,3 +247,12 @@ body { padding-bottom: env(safe-area-inset-bottom, 0px); }
 .hero-ctas .btn-liquid { padding: 0 46px 0 24px; }
 /* merchants.anuma.run's dark button: shadow-[0_8px_10px_rgba(28,25,23,0.5)]. A drop-shadow, so it follows the goo shape. */
 .hero-ctas .btn-liquid { filter: drop-shadow(0 8px 10px rgba(28, 25, 23, 0.5)); }
+
+/* ---------- 6 Nov, pass 7: hero Start chat, a plain filled button that hugs its label ---------- */
+.btn-start {
+  display: inline-flex; align-items: center; gap: 4px; height: 44px; padding: 0 12px; border-radius: 999px;
+  background: #1c1917; color: #fff; font: 500 15px/1 var(--font-sans); white-space: nowrap;
+  box-shadow: 0 8px 10px rgba(28, 25, 23, 0.5); /* merchants.anuma.run's dark button */
+}
+.btn-start svg { width: 18px; height: 18px; fill: currentColor; flex: none; }
+.hero-ctas .btn-start { flex: none; width: auto; }
