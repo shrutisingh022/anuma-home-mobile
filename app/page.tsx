@@ -48,11 +48,17 @@ export default function Home() {
       <main id="top">
         {/* HERO: as the HTML has it */}
         <section className="hero wrap">
+          <span className="hero-chip"><i />WhatsApp, email and calls, into your ERP</span>
           <h1>
             <em>AI agents</em> for Indian manufacturers.
           </h1>
           <p className="lede">Every enquiry handled until it&apos;s paid. Inside your ERP.</p>
+          <div className="ctas hero-ctas">
+            <LiquidButton size="wide" />
+            <a className="btn btn-glass" href="#platform">See how it works</a>
+          </div>
           <DashPreview />
+          <p className="dash-cap">Your admin panel, with sample data.</p>
         </section>
 
         {/* WHO IT'S FOR */}

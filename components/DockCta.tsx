@@ -3,15 +3,20 @@
 import { useEffect, useState } from "react";
 import { LiquidButton } from "./Icons";
 
-/** Sticky "Start chat", always on (as in the HTML), stepping aside while the final card's buttons are on screen. */
+/** Sticky "Start chat", stepping aside while the hero's or the final card's buttons are on screen. */
 export default function DockCta() {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const fin = document.querySelector(".final .ctas");
-    if (!fin) return;
-    const io = new IntersectionObserver((es) => setShow(!es[0].isIntersecting));
-    io.observe(fin);
+    // Steps aside while the hero's or the final card's own buttons are on screen.
+    const els = [...document.querySelectorAll(".hero-ctas, .final .ctas")];
+    if (!els.length) return;
+    const seen = new Map<Element, boolean>();
+    const io = new IntersectionObserver((es) => {
+      es.forEach((e) => seen.set(e.target, e.isIntersecting));
+      setShow(![...seen.values()].some(Boolean));
+    });
+    els.forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, []);
 

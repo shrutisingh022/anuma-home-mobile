@@ -1,44 +1,71 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Mark } from "./Icons";
+import { useEffect, useRef } from "react";
 
-const NAV_ITEMS: { label: string; badge?: string; d: string }[] = [
-  { label: "Home", d: "M3.5 9L10 3.5 16.5 9v7a1 1 0 01-1 1h-11a1 1 0 01-1-1z" },
-  { label: "Inbox", badge: "12", d: "M3.5 11l2-6.5h9l2 6.5v4.5a1 1 0 01-1 1h-11a1 1 0 01-1-1zM3.5 11h4l1 2h3l1-2h4" },
-  { label: "Orders", d: "M5.5 3.5h9a1.5 1.5 0 011.5 1.5v10a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 014 15V5a1.5 1.5 0 011.5-1.5zM7 7.5h6M7 10.5h6M7 13.5h3.5" },
-  { label: "Quotes", badge: "3", d: "M5 3h7l3 3v11H5zM8 10h5M8 13h3" },
-  { label: "Leads", d: "M10 4a3 3 0 110 6 3 3 0 010-6zM4 17c.8-3 3.2-4.5 6-4.5s5.2 1.5 6 4.5" },
-  { label: "Campaigns", d: "M3.5 8.5v3l9 4V4.5l-9 4zM12.5 7.5h2a2.5 2.5 0 010 5h-2" },
-  { label: "Products", d: "M3 6.5L10 3l7 3.5v7L10 17l-7-3.5zM3 6.5l7 3.5 7-3.5M10 10v7" },
-  { label: "Insights", d: "M3.5 16.5h13M6 13V9M10 13V5M14 13v-6" },
-  { label: "Rulebook", d: "M4 5h12M4 10h12M4 15h7" },
-];
+/*
+  The merchant admin panel's Home, rebuilt from its prototype (nuhome-dashboard.html, v5):
+  dark sidebar (collapsed to its icon rail), top bar, "Dashboard" heading with the period tabs,
+  three stat cards, the Top products bar chart and the At risk review queue.
+  Drawn at 560px wide, the width at which the panel's own layout still holds, then scaled to the phone.
+  Mock data only.
+*/
 
-const NEEDS = [
-  { av: "SF", bg: "#e3eefc", fg: "#2a4f86", name: "Shah Furnishings", id: "101026-1", line: "Confirm product · Zyra 14 Ivory", pct: "62% match", wait: "Waiting 6 min · flagged 11:36", amber: false, act: "Approve" },
-  { av: "RE", bg: "#fbeedd", fg: "#7d4a10", name: "Raj Electricals", id: "101026-4", line: "Quote line · Surge protection device", pct: "41% match", wait: "Waiting 12 min · at risk", amber: true, act: "Approve" },
-  { av: "PT", bg: "#e8f5ee", fg: "#17603f", name: "Patel Textiles", id: "101025-9", line: "Answer question · “rate same rahega na?”", pct: "", wait: "Waiting 3 min", amber: false, act: "Reply" },
-];
+const W = 560;
+const H = 720;
 
-function OkButton({ label }: { label: string }) {
-  const [done, setDone] = useState(false);
+function I({ d, children }: { d?: string[]; children?: React.ReactNode }) {
   return (
-    <button type="button" className={`dw-ok${done ? " done" : ""}`} onClick={() => setDone(true)} tabIndex={-1}>
-      {done ? (label === "Reply" ? "Replied ✓" : "Approved ✓") : label}
-    </button>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {d?.map((p) => <path key={p} d={p} />)}
+      {children}
+    </svg>
+  );
+}
+
+const ic = {
+  grid: <I><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /></I>,
+  inbox: <I d={["M22 12h-6l-2 3h-4l-2-3H2", "M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"]} />,
+  file: <I d={["M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z", "M14 2v4a2 2 0 0 0 2 2h4", "M10 9H8", "M16 13H8", "M16 17H8"]} />,
+  users: <I d={["M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", "M22 21v-2a4 4 0 0 0-3-3.87", "M16 3.13a4 4 0 0 1 0 7.75"]}><circle cx="9" cy="7" r="4" /></I>,
+  pkg: <I d={["M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z", "M12 22V12", "m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"]} />,
+  bot: <I d={["M12 8V4H8", "M2 14h2", "M20 14h2", "M15 13v2", "M9 13v2"]}><rect x="4" y="8" width="16" height="12" rx="2" /></I>,
+  gear: <I d={["M20 7h-9", "M14 17H5"]}><circle cx="17" cy="17" r="3" /><circle cx="7" cy="7" r="3" /></I>,
+  search: <I d={["m21 21-4.3-4.3"]}><circle cx="11" cy="11" r="8" /></I>,
+  chat: <I d={["M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z", "M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"]} />,
+  bell: <I d={["M10.268 21a2 2 0 0 0 3.464 0", "M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"]} />,
+  alert: <I d={["M12 8v4", "M12 16h.01"]}><circle cx="12" cy="12" r="10" /></I>,
+  bag: <I d={["M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z", "M3 6h18", "M16 10a4 4 0 0 1-8 0"]} />,
+  clock: <I d={["M16 22h2a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v3", "M14 2v4a2 2 0 0 0 2 2h4", "M9.5 17.5 8 16.25V14"]}><circle cx="8" cy="16" r="6" /></I>,
+  check: <I d={["M20 6 9 17l-5-5"]} />,
+  x: <I d={["M18 6 6 18", "m6 6 12 12"]} />,
+  panel: <I d={["M9 3v18"]}><rect x="3" y="3" width="18" height="18" rx="2" /></I>,
+};
+
+const NAV = [ic.grid, ic.inbox, ic.file, ic.users, ic.pkg, ic.bot];
+
+const PRODUCTS: [string, number][] = [["ZYRA 14", 586], ["LUNA 07", 524], ["NOVA 21", 314], ["ARIA 12", 210], ["OPAL 03", 96]];
+const MAX = 640;
+
+const CASES = [
+  { buyer: "Shah Furnishings", h: 210, match: "62%", prod: "ZYRA 14 Ivory", to: "Ravi" },
+  { buyer: "Mehta Drapes", h: 28, match: "55%", prod: "LUNA 07", to: "Meera" },
+];
+
+function Av({ name, h }: { name: string; h: number }) {
+  return (
+    <span className="md-av" style={{ background: `hsl(${h} 62% 93%)`, color: `hsl(${h} 52% 32%)`, boxShadow: `0 0 0 1px hsl(${h} 40% 84%)` }}>
+      {name[0]}
+    </span>
   );
 }
 
 export default function DashPreview() {
   const fitRef = useRef<HTMLDivElement>(null);
-  const dashRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const f = fitRef.current;
-    const d = dashRef.current;
-    if (!f || !d) return;
-    const fit = () => d.style.setProperty("--k", (f.clientWidth / 1180).toFixed(4));
+    if (!f) return;
+    const fit = () => f.style.setProperty("--k", (f.clientWidth / W).toFixed(4));
     fit();
     const ro = new ResizeObserver(fit);
     ro.observe(f);
@@ -46,108 +73,82 @@ export default function DashPreview() {
   }, []);
 
   return (
-    <>
-      <div className="dashwrap">
-        <div className="dashfit" ref={fitRef}>
-          <div className="dash" ref={dashRef} role="img" aria-label="The Anuma web app, with sample data">
-            <div className="dw-bar">
-              <i />
-              <i />
-              <i />
-              <span className="dw-url">app.anuma.co.in/home</span>
-            </div>
-            <div className="dw-body">
-              <aside className="dw-side">
-                <div className="dw-org">
-                  <span className="dw-logo">
-                    <Mark />
-                  </span>
-                  <b>Kapoor Textiles</b>
+    <div className="md-wrap">
+      <div className="md-fit" ref={fitRef} style={{ ["--w" as string]: W, ["--h" as string]: H }}>
+        <div className="md" role="img" aria-label="The Anuma admin panel's dashboard, with sample data">
+          <aside className="md-side">
+            <span className="md-ws">KT</span>
+            <span className="md-nv">{ic.search}</span>
+            {NAV.map((n, i) => (
+              <span className={`md-nv${i === 0 ? " on" : ""}`} key={i}>{n}</span>
+            ))}
+            <span className="md-sp" />
+            <span className="md-nv">{ic.gear}</span>
+          </aside>
+          <div className="md-main">
+            <header className="md-top">
+              <span className="md-ti md-tl">{ic.panel}</span>
+              <span className="md-sp" />
+              <span className="md-ti">{ic.chat}</span>
+              <span className="md-ti">{ic.bell}</span>
+              <span className="md-me">RK</span>
+            </header>
+            <div className="md-page">
+              <div className="md-head">
+                <h3>Dashboard</h3>
+                <div className="md-tabs">
+                  <span>Today</span>
+                  <span className="on">Last week</span>
+                  <span>Last month</span>
                 </div>
-                {NAV_ITEMS.map((n, i) => (
-                  <span key={n.label} className={`nv${i === 0 ? " on" : ""}`}>
-                    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                      <path d={n.d} stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    {n.label}
-                    {n.badge && <em>{n.badge}</em>}
-                  </span>
+              </div>
+
+              <div className="md-stats">
+                {[
+                  ["Needs you", ic.alert, "2 cases"],
+                  ["Sales today", ic.bag, "4 orders"],
+                  ["Drafts pending", ic.clock, "21 drafts"],
+                ].map(([t, icon, v]) => (
+                  <div className="md-card md-stat" key={t as string}>
+                    <div className="k">{t}{icon}</div>
+                    <div className="v">{v}</div>
+                  </div>
                 ))}
-              </aside>
-              <div className="dw-main">
-                <div className="dw-head">
-                  <div>
-                    <b>Home</b>
-                    <small>
-                      Wednesday, 5 Nov · <i />
-                      Live
-                    </small>
+              </div>
+
+              <div className="md-card">
+                <div className="md-ch">
+                  <div className="t">Top products</div>
+                  <div className="d">Metres ordered · Last week</div>
+                </div>
+                <div className="md-cb">
+                  <div className="md-grid"><i /><i /><i /><i /></div>
+                  {PRODUCTS.map(([n, v], i) => (
+                    <div className="md-col" key={n}>
+                      <span className={`md-bar${i === 0 ? " top" : ""}`} style={{ height: `${(v / MAX) * 100}%` }} />
+                      <span className="md-x">{n}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="md-card">
+                <div className="md-caseh"><span className="t">At risk</span><span className="md-badge">2</span></div>
+                {CASES.map((c) => (
+                  <div className="md-case" key={c.buyer}>
+                    <div className="top"><Av name={c.buyer} h={c.h} /><b>{c.buyer}</b><span className="m">· product match {c.match}</span></div>
+                    <div className="d">Anuma matched this to <b>{c.prod}</b> · with {c.to}</div>
+                    <div className="a">
+                      <span className="md-btn p">{ic.check}Approve</span>
+                      <span className="md-btn o">{ic.x}Reject</span>
+                    </div>
                   </div>
-                  <div className="dw-seg">
-                    <span className="on">Today</span>
-                    <span>Yesterday</span>
-                    <span>Custom</span>
-                  </div>
-                </div>
-                <div className="dw-kpis">
-                  <div><span>Needs you</span><b>3 cases</b></div>
-                  <div><span>Drafts pending</span><b>7 drafts</b></div>
-                  <div><span>Orders closed</span><b>41 · ₹18.6L</b></div>
-                  <div><span>Overdue replies</span><b>0</b></div>
-                </div>
-                <div className="dw-cols">
-                  <section className="dw-card">
-                    <div className="dw-ch">
-                      <b>Needs you</b>
-                      <span className="cp amber">At risk 2</span>
-                      <span className="cp red">Breaches 0</span>
-                    </div>
-                    {NEEDS.map((r) => (
-                      <div className="dw-row" key={r.id}>
-                        <span className="av" style={{ background: r.bg, color: r.fg }}>{r.av}</span>
-                        <div className="dw-rt">
-                          <b>{r.name} <em>{r.id}</em></b>
-                          <span>{r.line} {r.pct && <i className="pct">{r.pct}</i>}</span>
-                          <small className={r.amber ? "amber" : undefined}>{r.wait}</small>
-                        </div>
-                        <OkButton label={r.act} />
-                      </div>
-                    ))}
-                  </section>
-                  <section className="dw-card">
-                    <div className="dw-ch"><b>Activity log</b><span className="dw-full">Full log</span></div>
-                    <div className="dw-act"><span className="disc"><i /><i /></span><div><b>Drafted SO-1042</b> for Kapoor Decor<small>2 min ago</small></div></div>
-                    <div className="dw-act"><span className="disc"><i /><i /></span><div><b>Sent today&apos;s stock</b> to 52 distributors<small>9:00</small></div></div>
-                    <div className="dw-act"><span className="disc"><i /><i /></span><div><b>Matched 3 of 4 lines</b> on Raj Electricals&apos; RFQ<small>14 min ago</small></div></div>
-                    <div className="dw-act"><span className="pdisc">R</span><div><b>Ravi approved</b> SO-1041 · synced to Tally<small>20 min ago</small></div></div>
-                  </section>
-                </div>
-                <div className="dw-cols dw-c2">
-                  <section className="dw-card">
-                    <div className="dw-ch"><b>Orders this week</b><span className="dw-full">₹74.2L</span></div>
-                    <div className="dw-bars">
-                      {[38, 52, 45, 70, 61, 84, 66].map((h, i) => (
-                        <i key={i} className={i === 6 ? "now" : undefined} style={{ height: `${h}%` }} />
-                      ))}
-                    </div>
-                    <div className="dw-days">
-                      {["Thu", "Fri", "Sat", "Mon", "Tue", "Wed", "Today"].map((d) => <span key={d}>{d}</span>)}
-                    </div>
-                  </section>
-                  <section className="dw-card">
-                    <div className="dw-ch"><b>Top buyers</b><span className="dw-full">This month</span></div>
-                    <div className="dw-tb"><span>Shree Ganesh Furnishings</span><b>₹21.8L</b></div>
-                    <div className="dw-tb"><span>Kapoor Decor</span><b>₹14.2L</b></div>
-                    <div className="dw-tb"><span>Royal Home Studio</span><b>₹9.7L</b></div>
-                    <div className="dw-tb"><span>Mehta Drapes</span><b>₹8.1L</b></div>
-                  </section>
-                </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </div>
-      <p className="dash-cap">The Anuma web app, with sample data.</p>
-    </>
+    </div>
   );
 }
