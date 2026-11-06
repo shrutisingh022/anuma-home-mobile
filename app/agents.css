@@ -277,7 +277,3 @@
   background-image: radial-gradient(circle, #ececea 1px, transparent 1.4px);
   background-size: 12px 12px; background-position: 6px 6px;
 }
-
-/* agents: the card alone, no panel around it */
-.at-card .at-frame, .at-glass, .at-screen { padding: 0; background: none; box-shadow: none; border: 0; border-radius: 0; overflow: visible; }
-.at-card .wx { box-shadow: 0 0 0 1px rgba(17, 17, 17, 0.07), 0 1px 2px rgba(17, 17, 17, 0.04); }
