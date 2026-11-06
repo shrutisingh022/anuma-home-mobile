@@ -2,9 +2,17 @@
    The live merchant admin panel's Home (merchants.anuma.run), at its own size
    (1960 x 1180 canvas), scaled to the phone. Inter, neutral shadcn tokens.
    ========================================================================== */
-.mx-wrap { margin-top: 32px; padding: 6px; border-radius: 16px; background: #ededeb; box-shadow: inset 0 0 0 1px rgba(17, 17, 17, 0.05); text-align: left; }
-.mx-fit { position: relative; width: 100%; aspect-ratio: 1960 / 1120; overflow: hidden; border-radius: 11px; background: #fafafa;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 30px 60px -30px rgba(17, 17, 17, 0.35); }
+.mx-wrap { margin-top: 32px; border-radius: 14px; overflow: hidden; background: #fff; text-align: left;
+  box-shadow: 0 0 0 1px rgba(17, 17, 17, 0.09), 0 32px 64px -32px rgba(17, 17, 17, 0.4), 0 12px 24px -16px rgba(17, 17, 17, 0.18); }
+.mx-bar { display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 10px; background: #f3f3f2; border-bottom: 1px solid #e6e6e4; }
+.mx-dots { display: flex; gap: 5px; }
+.mx-dots i { width: 8px; height: 8px; border-radius: 50%; background: #ff5f57; }
+.mx-dots i:nth-child(2) { background: #febc2e; } .mx-dots i:nth-child(3) { background: #28c840; }
+.mx-dots.ghost { visibility: hidden; }
+.mx-url { flex: 1; min-width: 0; height: 20px; display: flex; align-items: center; justify-content: center; gap: 4px; border-radius: 6px; background: #fff;
+  box-shadow: 0 0 0 1px rgba(17, 17, 17, 0.06); font: 400 10.5px/1 var(--font-inter, Inter), sans-serif; color: #525252; white-space: nowrap; overflow: hidden; }
+.mx-url svg { width: 9px; height: 9px; flex: none; color: #8a8a8a; }
+.mx-fit { position: relative; width: 100%; aspect-ratio: 1960 / 1120; overflow: hidden; background: #fafafa; }
 .mx-fit::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 18%; pointer-events: none;
   background: linear-gradient(to bottom, rgba(250, 250, 250, 0), #fafafa 90%); }
 

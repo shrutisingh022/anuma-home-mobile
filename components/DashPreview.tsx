@@ -78,6 +78,14 @@ export default function DashPreview() {
 
   return (
     <div className="mx-wrap">
+      <div className="mx-bar" aria-hidden="true">
+        <span className="mx-dots"><i /><i /><i /></span>
+        <span className="mx-url">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>
+          merchants.anuma.run/home
+        </span>
+        <span className="mx-dots ghost"><i /><i /><i /></span>
+      </div>
       <div className="mx-fit" ref={fitRef}>
         <div className="mx" role="img" aria-label="The Anuma admin panel's Home screen, with sample data">
           <aside className="mx-side">
