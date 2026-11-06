@@ -47,10 +47,11 @@ function PlayStoreIcon() {
   );
 }
 
-function Label({ dot, children }: { dot: string; children: string }) {
+/** The HTML's feature pill (.dp): tinted fill, 1.5px border, a dot in the same colour. */
+function Label({ tone, children }: { tone: "a" | "v" | "r" | "k"; children: string }) {
   return (
-    <span className="chip feat-label">
-      <i style={{ background: dot }} />
+    <span className={`dp is-${tone}`}>
+      <i />
       {children}
     </span>
   );
@@ -61,21 +62,26 @@ export default function TeamFeatures() {
   const [flow, setFlow] = useState<"on" | "off">("on");
   const [role, setRole] = useState<keyof typeof ROLES>("o");
 
+  const Tick = () => <CircleCheck aria-hidden size={18} strokeWidth={2} />;
+
+  // As the HTML lays each feature out: pill, heading, text and points on top, then the demo, then its toggle.
   return (
     <div className="feats">
       <article className="feat rv">
+        <div className="feat-body">
+          <Label tone="a">Mobile app</Label>
+          <h3 className="t-h3">Approve from your phone.</h3>
+          <p className="t-lede">For owners, sales and reps, on iOS and Android.</p>
+          <ul className="ticks ticks-ic">
+            <li><Tick />Approve orders and quotes in one tap</li>
+            <li><Tick />Reps place orders from the market</li>
+            <li><Tick />Every customer&apos;s history in your pocket</li>
+          </ul>
+        </div>
         <div className="feat-stage stage is-phone">
           <AppPhone />
         </div>
-        <div className="feat-body">
-          <Label dot="#f2b53a">Mobile app</Label>
-          <h3 className="t-h3">Approve from your phone.</h3>
-          <p className="t-lede">On iOS and Android.</p>
-          <ul className="ticks ticks-ic">
-            <li><CircleCheck aria-hidden size={18} strokeWidth={2} />Approve orders and quotes in one tap</li>
-            <li><CircleCheck aria-hidden size={18} strokeWidth={2} />Reps place orders from the market</li>
-            <li><CircleCheck aria-hidden size={18} strokeWidth={2} />Every customer&apos;s history in your pocket</li>
-          </ul>
+        <div className="feat-foot">
           <div className="stores">
             {/* TODO: real store links once the app is live */}
             <a className="store" href="#team"><AppleIcon /><span><small>Download on the</small>App Store</span></a>
@@ -85,6 +91,11 @@ export default function TeamFeatures() {
       </article>
 
       <article className="feat rv">
+        <div className="feat-body">
+          <Label tone="v">Rulebooks</Label>
+          <h3 className="t-h3">Write your rules once.</h3>
+          <p className="t-lede">Rates, discounts, credit limits and who approves what. Every order follows them.</p>
+        </div>
         <div className="feat-stage stage">
           <div className="panel-card" aria-live="polite">
             <div className="rh"><b>Rulebook</b><small>applies to every order</small></div>
@@ -93,15 +104,17 @@ export default function TeamFeatures() {
             ))}
           </div>
         </div>
-        <div className="feat-body">
-          <Label dot="#6a88e2">Rulebooks</Label>
-          <h3 className="t-h3">Write your rules once.</h3>
-          <p className="t-lede">Every order follows them.</p>
+        <div className="feat-foot">
           <Seg label="Buyer type" value={rule} onChange={setRule} opts={[["a", "Band A dealer"], ["b", "Band B"], ["n", "New buyer"]]} />
         </div>
       </article>
 
       <article className="feat rv">
+        <div className="feat-body">
+          <Label tone="r">Custom workflows</Label>
+          <h3 className="t-h3">Your steps, in your order.</h3>
+          <p className="t-lede">Add the step only your business has. Anuma follows it every time.</p>
+        </div>
         <div className="feat-stage stage">
           <div className="flowx">
             <span className="fs">Enquiry</span><span className="fa">›</span>
@@ -115,15 +128,17 @@ export default function TeamFeatures() {
             <span className="fs">Dispatch</span>
           </div>
         </div>
-        <div className="feat-body">
-          <Label dot="#e0673f">Custom workflows</Label>
-          <h3 className="t-h3">Your steps, in your order.</h3>
-          <p className="t-lede">Add the step only your business has.</p>
+        <div className="feat-foot">
           <Seg label="Workflow" value={flow} onChange={setFlow} opts={[["on", "With your step"], ["off", "Standard"]]} />
         </div>
       </article>
 
       <article className="feat rv">
+        <div className="feat-body">
+          <Label tone="k">Roles and approvals</Label>
+          <h3 className="t-h3">Everyone sees only what they should.</h3>
+          <p className="t-lede">Decide who sees, edits and approves. Every action is logged.</p>
+        </div>
         <div className="feat-stage stage">
           <div className="panel-card" aria-live="polite">
             {ROLES[role].map(([k, y]) => (
@@ -135,10 +150,7 @@ export default function TeamFeatures() {
             <div className="plog">Last action · Ravi approved SO-1042 · 10:44</div>
           </div>
         </div>
-        <div className="feat-body">
-          <Label dot="#1f1f1f">Roles and approvals</Label>
-          <h3 className="t-h3">Each role sees only its part.</h3>
-          <p className="t-lede">Every action is logged.</p>
+        <div className="feat-foot">
           <Seg label="Role" value={role} onChange={setRole} opts={[["o", "Owner"], ["s", "Sales"], ["r", "Rep"]]} />
         </div>
       </article>

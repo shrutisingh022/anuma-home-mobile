@@ -158,3 +158,20 @@
 .at-card .at-frame { padding: 0; border-radius: 20px; }
 .at-glass { padding: 0; border: 0; border-radius: 20px; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none; }
 .at-screen { border-radius: 20px; padding: 18px 14px; box-shadow: inset 0 0 0 1px rgba(17, 17, 17, 0.05); }
+
+/* ---------- team features, in the HTML's order: pill, heading, text, points, then the demo ---------- */
+.feat-body { gap: 0; padding: 16px 12px 0; }
+.feat-stage { margin-top: 20px; border-radius: 18px; }
+.feat-foot { padding: 12px 4px 4px; }
+.feat-foot:empty { display: none; }
+.feat-foot .seg { margin: 0; }
+.feat-body .t-h3 { margin-top: 14px; }
+.feat-body .t-lede { margin-top: 6px; }
+.feat-body .ticks { margin-top: 14px; }
+.dp { display: inline-flex; align-items: center; gap: 7px; height: 28px; padding: 0 12px 0 10px; border-radius: 999px; border: 1.5px solid;
+  font-size: 13px; font-weight: 600; }
+.dp i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.dp.is-a { color: #8a5a14; border-color: #e3cfae; background: #fbf4e8; }
+.dp.is-v { color: #5a39a0; border-color: #cdbdec; background: #f3effb; }
+.dp.is-r { color: #be123c; border-color: #f2b8c6; background: #fdf0f3; }
+.dp.is-k { color: #16161a; border-color: #cfcfd8; background: #f6f6f8; }
