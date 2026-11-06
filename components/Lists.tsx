@@ -1,10 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import {
   ChevronDown, Cog, Droplets, Factory, FlaskConical, Gift, Hammer, Package, PlugZap, Ship, Shirt, Smartphone, Wrench, type LucideIcon,
 } from "lucide-react";
 
-// Who it's for, laid out as the first version had it: a two-column grid of cards, each with an
+// Who it's for, one card per industry, top to bottom, five showing until opened, each with an
 // icon, the industry and one line. Icons sit in the black glass tile the agent tabs use.
 const INDUSTRIES: [LucideIcon, string, string][] = [
   [Shirt, "Fabric and textiles", "Swatch photos, shades, rolls and metres"],
@@ -22,16 +23,23 @@ const INDUSTRIES: [LucideIcon, string, string][] = [
 ];
 
 export function Industries() {
+  const [all, setAll] = useState(false);
+  const shown = all ? INDUSTRIES : INDUSTRIES.slice(0, 5);
   return (
-    <div className="inds">
-      {INDUSTRIES.map(([I, name, line]) => (
-        <div className="ind rv" key={name}>
-          <span className="ind-ic"><I aria-hidden size={17} strokeWidth={1.8} /></span>
-          <b>{name}</b>
-          <p>{line}</p>
-        </div>
-      ))}
-    </div>
+    <>
+      <div className="inds" id="industries">
+        {shown.map(([I, name, line]) => (
+          <div className="ind" key={name}>
+            <span className="ind-ic"><I aria-hidden size={17} strokeWidth={1.8} /></span>
+            <span className="ind-t"><b>{name}</b><p>{line}</p></span>
+          </div>
+        ))}
+      </div>
+      <button type="button" className="ind-more" aria-expanded={all} aria-controls="industries" onClick={() => setAll((v) => !v)}>
+        {all ? "Show fewer" : `Show all ${INDUSTRIES.length} industries`}
+        <ChevronDown aria-hidden size={16} style={{ transform: all ? "rotate(180deg)" : undefined }} />
+      </button>
+    </>
   );
 }
 

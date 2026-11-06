@@ -283,3 +283,13 @@ body { padding-bottom: env(safe-area-inset-bottom, 0px); }
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 8px 18px -10px rgba(17, 17, 17, 0.55); }
 .ind b { margin-top: 12px; font-size: 15px; line-height: 1.25; font-weight: 600; letter-spacing: -0.015em; color: var(--ink); }
 .ind p { margin-top: 4px; font-size: 13px; line-height: 1.4; color: #71717a; }
+/* industries, top to bottom: icon left, name and line right; five show, the rest open in place */
+.inds { grid-template-columns: 1fr; gap: 8px; }
+.ind { flex-direction: row; align-items: center; gap: 14px; padding: 14px 16px; }
+.ind-ic { flex: none; }
+.ind-t { min-width: 0; }
+.ind-t b { display: block; margin-top: 0; font-size: 15px; line-height: 1.25; font-weight: 600; letter-spacing: -0.015em; color: var(--ink); }
+.ind-t p { margin-top: 3px; font-size: 13px; line-height: 1.4; color: #71717a; }
+.ind-more { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; height: 44px; margin-top: 8px; border-radius: 14px;
+  background: #fff; box-shadow: 0 0 0 1px rgba(17, 17, 17, 0.07); font: 500 14px/1 var(--font-sans); color: var(--ink); }
+.ind-more svg { transition: transform 0.2s; }
