@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowDownRight, Check } from "lucide-react";
+import { ArrowDownRight, Check, UserRound } from "lucide-react";
 
 // How we start: a vertical timeline in the workflow card language. The step in the middle of the
 // screen is the current one (black glass); the ones above it are done (green check); the line fills
@@ -44,8 +44,9 @@ export default function ProcessSteps() {
   }, []);
 
   return (
-    <ol className="pf" style={{ ["--fill" as string]: `${fill}px` }}>
-      <span className="pf-track" aria-hidden="true"><i /></span>
+    <div className="pf-wrap" style={{ ["--fill" as string]: `${fill}px` }}>
+    <span className="pf-track" aria-hidden="true"><i /></span>
+    <ol className="pf">
       {STEPS.map((s, n) => (
         <li key={s.h} ref={(el) => { refs.current[n] = el; }} className={`pf-step${n < at ? " done" : n === at ? " now" : ""}`}>
           <span className="pf-dot" aria-hidden="true">{n < at ? <Check size={16} strokeWidth={2.5} /> : n + 1}</span>
@@ -54,12 +55,13 @@ export default function ProcessSteps() {
             <h3>{s.h}</h3>
             <p>{s.p}</p>
             <div className="pf-give">
-              <span><b>You</b>{s.you}</span>
+              <span><UserRound size={14} strokeWidth={2} aria-hidden />{s.you}</span>
               <span><ArrowDownRight size={14} strokeWidth={2} aria-hidden />{s.get}</span>
             </div>
           </div>
         </li>
       ))}
     </ol>
+    </div>
   );
 }
