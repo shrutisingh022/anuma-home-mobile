@@ -344,7 +344,7 @@
 .final .ctas { flex-direction: row; justify-content: center; gap: 8px; margin-top: 22px; }
 .final .ctas > * { width: auto; max-width: none; flex: none; }
 .btn-start.is-light { background: #fff; color: #1c1917; box-shadow: 0 8px 18px -6px rgba(0, 0, 0, 0.45); }
-.btn-line { display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border-radius: 999px; color: #fff; font: 500 15px/1 var(--font-sans); white-space: nowrap;
+.btn-line { display: inline-flex; align-items: center; height: 44px; padding: 0 14px; border-radius: 999px; color: #fff; font: 500 15px/1 var(--font-sans); white-space: nowrap;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55); background: rgba(255, 255, 255, 0.06); }
 .final .btn-start { padding: 0 16px; }
 .fcard-foot { margin-top: 150px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.18); }
@@ -353,3 +353,4 @@
 .fcard-foot nav { grid-column: 1 / -1; margin-top: 0; gap: 0 16px; }
 .fcard-foot nav a { min-height: 34px; font-size: 13.5px; color: rgba(255, 255, 255, 0.86); }
 .fcard-foot p { grid-row: 1; grid-column: 2; justify-self: end; margin: 0; font-size: 11.5px; color: rgba(255, 255, 255, 0.6); }
+.final { padding-left: 16px; padding-right: 16px; }
