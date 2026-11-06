@@ -132,7 +132,7 @@ export default function Home() {
         <section className="section wrap" id="team">
           <div className="head">
             <span className="t-eyebrow">For your team</span>
-            <h2 className="t-h2">Built for your whole team.</h2>
+            <h2 className="t-h2">Built for<br />your whole team.</h2>
             <p className="t-lede">Owners, sales, reps and accounts each get what they need.</p>
           </div>
           <TeamFeatures />
