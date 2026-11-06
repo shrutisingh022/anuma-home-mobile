@@ -3,7 +3,7 @@
 import { useState } from "react";
 import AppPhone from "./AppPhone";
 import {
-  CircleCheck, Eye, FileText, History, IndianRupee, MessageCircle, Package, PenLine, ShieldCheck, Truck, UserCheck, type LucideIcon,
+  BookOpen, CircleCheck, CreditCard, Eye, FileText, Tag, History, IndianRupee, MessageCircle, Package, PenLine, ShieldCheck, Truck, UserCheck, type LucideIcon,
 } from "lucide-react";
 
 // The v2 HTML's four features, word for word, in the live media-card shape: dotted stage on top, copy below.
@@ -45,6 +45,8 @@ const WHO = {
   r: ["Meera Joshi", "Rep · West zone"],
 } as const;
 const PERM_ICONS: LucideIcon[] = [Eye, PenLine, ShieldCheck, IndianRupee];
+const RULE_ICONS: LucideIcon[] = [Tag, CreditCard, UserCheck, Truck];
+const RULE_FOR = { a: "Band A dealer", b: "Band B", n: "New buyer" } as const;
 
 function AppleIcon() {
   return (
@@ -114,11 +116,21 @@ export default function TeamFeatures() {
           <p className="t-lede">Rates, discounts, credit limits and who approves what. Every order follows them.</p>
         </div>
         <div className="feat-stage stage">
-          <div className="panel-card" aria-live="polite">
-            <div className="rh"><b>Rulebook</b><small>applies to every order</small></div>
-            {RULES[rule].map(([k, v]) => (
-              <div className="rr" key={k}><span>{k}</span><b>{v}</b></div>
-            ))}
+          <div className="rl rb" aria-live="polite">
+            <div className="rl-who">
+              <span className="rl-av rb-av"><BookOpen size={16} strokeWidth={2} /></span>
+              <span className="rl-n"><b>Rulebook</b><small>{RULE_FOR[rule]} · applies to every order</small></span>
+            </div>
+            {RULES[rule].map(([k, v], n) => {
+              const I = RULE_ICONS[n];
+              return (
+                <div className="rl-row on rb-row" key={k}>
+                  <span className="rl-ic"><I size={15} strokeWidth={1.9} /></span>
+                  <span className="rl-k">{k}</span>
+                  <b className="rb-v" key={v}>{v}</b>
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className="feat-foot">

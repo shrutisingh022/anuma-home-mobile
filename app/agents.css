@@ -218,3 +218,55 @@
 .rl-row.on .rl-sw i { transform: translateX(14px); }
 .rl-log { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: #fafafa; font-size: 11.5px; color: #71717a; }
 @media (prefers-reduced-motion: reduce) { .wf-step { animation: none; } .rl-sw, .rl-sw i { transition: none; } }
+
+/* ---------- rulebook: the roles card, with values instead of switches ---------- */
+.rb-av { background: radial-gradient(80% 60% at 50% 0%, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 70%), #2f55c8; box-shadow: 0 6px 14px -6px rgba(47, 85, 200, 0.6); }
+.rb-row.on .rl-ic { background: #f1f5ff; color: #2f55c8; }
+.rb-row .rl-k { color: #71717a; }
+.rb-v { font-size: 13.5px; font-weight: 600; color: #18181b; text-align: right; animation: rb-in 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes rb-in { from { opacity: 0; transform: translateY(4px); } }
+
+/* ---------- agent screens, in the workflow / roles card language ---------- */
+.at-screen { padding: 18px 12px; }
+.wx { width: 100%; border-radius: 16px; background: #fff; overflow: hidden; text-align: left;
+  box-shadow: 0 0 0 1px rgba(17, 17, 17, 0.06), 0 18px 36px -22px rgba(17, 17, 17, 0.4); }
+.wx-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid #f0f0f1; }
+.wx-av { display: grid; place-items: center; width: 34px; height: 34px; flex: none; border-radius: 50%; color: #fff;
+  background: radial-gradient(80% 60% at 50% 0%, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 70%), #1f1f1f;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 6px 14px -6px rgba(17, 17, 17, 0.55); }
+.wx-n { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.wx-n b { font-size: 14px; line-height: 19px; font-weight: 600; color: #18181b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wx-n small { font-size: 12px; color: #71717a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.wx-body { padding: 4px 14px; }
+.wx-row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid #f4f4f5;
+  opacity: 0.28; transition: opacity 0.4s ease; }
+.wx-row:last-child { border-bottom: 0; }
+.wx-row.on { opacity: 1; }
+.wx-railc { display: flex; flex-direction: column; align-items: center; align-self: stretch; flex: none; width: 28px; }
+.wx-ic { display: grid; place-items: center; width: 28px; height: 28px; flex: none; border-radius: 8px; background: #f4f4f5; color: #3f3f46; transition: background 0.3s, color 0.3s; }
+.wx-row.on .wx-ic { background: #effaf4; color: #0f7a4a; }
+.wx-row.is-key.on .wx-ic { color: #fff; background: radial-gradient(80% 60% at 50% 0%, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 70%), #1f1f1f;
+  box-shadow: 0 6px 14px -6px rgba(17, 17, 17, 0.55); }
+.wx-txt { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.wx-txt b { font-size: 13.5px; line-height: 18px; font-weight: 600; color: #18181b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wx-txt small { font-size: 11.5px; line-height: 16px; color: #71717a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* steps joined by a line, as in the workflow */
+.wx-body.rail .wx-row { align-items: flex-start; border-bottom: 0; padding: 6px 0 0; }
+.wx-body.rail .wx-ic { border-radius: 50%; }
+.wx-body.rail .wx-txt { padding: 4px 0 8px; }
+.wx-line { flex: 1; width: 1.5px; min-height: 10px; margin: 3px 0 -3px; border-radius: 2px; background: #e4e4e7; }
+.wx-row.on .wx-line { background: #bfe5cf; }
+
+.wx-log { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: #fafafa; border-top: 1px solid #f0f0f1; font-size: 11.5px; color: #71717a; }
+
+/* identify: the photo being scanned, and the match filling */
+.wx-photo { position: relative; display: block; width: 120px; height: 64px; margin-top: 6px; overflow: hidden; border-radius: 8px;
+  background: repeating-linear-gradient(45deg, #efe4cf 0 6px, #e6d7bb 6px 7px), #efe4cf; }
+.wx-photo::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 30% 40%, rgba(178, 140, 92, 0.35) 0 11px, transparent 12px), radial-gradient(circle at 72% 62%, rgba(178, 140, 92, 0.35) 0 9px, transparent 10px); }
+.wx-photo i { position: absolute; left: 0; right: 0; top: 0; height: 2px; background: #5b47e1; box-shadow: 0 0 10px 3px rgba(91, 71, 225, 0.5); opacity: 0; }
+.wx-photo.scan i { opacity: 1; animation: ag-scan 0.9s ease-in-out infinite alternate; }
+.wx-meter { display: block; height: 5px; margin-top: 6px; border-radius: 5px; background: #f4f4f5; overflow: hidden; }
+.wx-meter i { display: block; height: 100%; border-radius: 5px; background: #1a9948; transition: width 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); }
+@media (prefers-reduced-motion: reduce) { .wx-row, .wx-ic, .wx-meter i { transition: none; } .wx-photo.scan i { animation: none; } .rb-v { animation: none; } }
