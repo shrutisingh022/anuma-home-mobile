@@ -124,7 +124,7 @@ export default function AgentTabs() {
       <article className="at-card" key={a.name} id="agent-panel" role="tabpanel" aria-labelledby={`tab-${a.name}`}>
         <div className="at-frame">
           <div className="at-glass">
-            <div className="at-screen stage"><AgentScreen name={a.name} step={step} /></div>
+            <div className="at-screen"><AgentScreen name={a.name} step={step} /></div>
           </div>
         </div>
         <span className="chip at-tag">{a.tag}</span>
