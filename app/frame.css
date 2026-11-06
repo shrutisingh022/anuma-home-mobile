@@ -241,3 +241,9 @@ body { padding-bottom: env(safe-area-inset-bottom, 0px); }
 .wa-fab.show { opacity: 1; transform: none; pointer-events: auto; }
 .wa-fab:active { transform: scale(0.94); }
 @media (prefers-reduced-motion: reduce) { .wa-fab { transition: opacity 0.2s; } }
+
+/* ---------- 6 Nov, pass 6: Start chat hugs its label, with the admin panel's depth shadow ---------- */
+.hero-ctas > * { width: auto; }
+.hero-ctas .btn-liquid { padding: 0 46px 0 24px; }
+/* merchants.anuma.run's dark button: shadow-[0_8px_10px_rgba(28,25,23,0.5)]. A drop-shadow, so it follows the goo shape. */
+.hero-ctas .btn-liquid { filter: drop-shadow(0 8px 10px rgba(28, 25, 23, 0.5)); }
