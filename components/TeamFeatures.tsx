@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import AppPhone from "./AppPhone";
-import { CircleCheck } from "lucide-react";
+import {
+  CircleCheck, Eye, FileText, History, IndianRupee, MessageCircle, Package, PenLine, ShieldCheck, Truck, UserCheck, type LucideIcon,
+} from "lucide-react";
 
 // The v2 HTML's four features, word for word, in the live media-card shape: dotted stage on top, copy below.
 function Seg<T extends string>({ opts, value, onChange, label }: { opts: [T, string][]; value: T; onChange: (v: T) => void; label: string }) {
@@ -28,6 +30,21 @@ const ROLES = {
   s: [["See every customer and rate", true], ["Edit rates and rules", false], ["Approve orders", true], ["See margins", false]],
   r: [["See their own customers", true], ["Edit rates and rules", false], ["Approve orders", false], ["See margins", false]],
 } as const;
+
+const FLOW: { I: LucideIcon; t: string; d: string; custom?: boolean }[] = [
+  { I: MessageCircle, t: "Enquiry", d: "WhatsApp, email or a call" },
+  { I: FileText, t: "Quote", d: "Priced on today's rates" },
+  { I: UserCheck, t: "Partner approval", d: "Only above ₹5L · Neha approves", custom: true },
+  { I: Package, t: "Order", d: "Saved to Tally" },
+  { I: Truck, t: "Dispatch", d: "Truck booked, buyer told" },
+];
+
+const WHO = {
+  o: ["Ritu Kapoor", "Owner"],
+  s: ["Ravi Shah", "Sales"],
+  r: ["Meera Joshi", "Rep · West zone"],
+} as const;
+const PERM_ICONS: LucideIcon[] = [Eye, PenLine, ShieldCheck, IndianRupee];
 
 function AppleIcon() {
   return (
@@ -116,16 +133,19 @@ export default function TeamFeatures() {
           <p className="t-lede">Add the step only your business has. Anuma follows it every time.</p>
         </div>
         <div className="feat-stage stage">
-          <div className="flowx">
-            <span className="fs">Enquiry</span><span className="fa">›</span>
-            <span className="fs">Quote</span><span className="fa">›</span>
-            {flow === "on" && (
-              <>
-                <span className="fs cus">Partner approval above ₹5L</span><span className="fa">›</span>
-              </>
-            )}
-            <span className="fs">Order</span><span className="fa">›</span>
-            <span className="fs">Dispatch</span>
+          <div className="wf" aria-live="polite">
+            {FLOW.filter((f) => flow === "on" || !f.custom).map((f, n, arr) => (
+              <div className={`wf-step${f.custom ? " is-custom" : ""}`} key={f.t}>
+                <span className="wf-rail" aria-hidden="true">
+                  <span className="wf-ic"><f.I size={15} strokeWidth={2} /></span>
+                  {n < arr.length - 1 && <span className="wf-line" />}
+                </span>
+                <span className="wf-txt">
+                  <b>{f.t}{f.custom && <em>Your step</em>}</b>
+                  <small>{f.d}</small>
+                </span>
+              </div>
+            ))}
           </div>
         </div>
         <div className="feat-foot">
@@ -140,14 +160,22 @@ export default function TeamFeatures() {
           <p className="t-lede">Decide who sees, edits and approves. Every action is logged.</p>
         </div>
         <div className="feat-stage stage">
-          <div className="panel-card" aria-live="polite">
-            {ROLES[role].map(([k, y]) => (
-              <div className={`pr ${y ? "y" : "n"}`} key={k}>
-                <span className="pk">{y ? "✓" : "✕"}</span>
-                {k}
-              </div>
-            ))}
-            <div className="plog">Last action · Ravi approved SO-1042 · 10:44</div>
+          <div className="rl" aria-live="polite">
+            <div className="rl-who">
+              <span className="rl-av">{WHO[role][0].split(" ").map((w) => w[0]).join("")}</span>
+              <span className="rl-n"><b>{WHO[role][0]}</b><small>{WHO[role][1]}</small></span>
+            </div>
+            {ROLES[role].map(([k, y], n) => {
+              const I = PERM_ICONS[n];
+              return (
+                <div className={`rl-row${y ? " on" : ""}`} key={k}>
+                  <span className="rl-ic"><I size={15} strokeWidth={1.9} /></span>
+                  <span className="rl-k">{k}</span>
+                  <span className="rl-sw" aria-label={y ? "Allowed" : "Not allowed"}><i /></span>
+                </div>
+              );
+            })}
+            <div className="rl-log"><History size={13} strokeWidth={2} />Ravi approved SO-1042 · 10:44</div>
           </div>
         </div>
         <div className="feat-foot">
