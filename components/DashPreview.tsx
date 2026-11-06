@@ -42,6 +42,7 @@ const ic = {
   clock: <I d={["M12 6v6l4 2"]}><circle cx="12" cy="12" r="10" /></I>,
   spark: <I d={["M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z", "M20 3v4", "M22 5h-4"]} />,
   checks: <I d={["M18 6 7 17l-5-5", "m22 10-7.5 7.5L13 16"]} />,
+  user: <I d={["M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"]}><circle cx="12" cy="7" r="4" /></I>,
   pen: <I d={["M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"]} />,
 };
 
@@ -58,9 +59,13 @@ function Stat({ icon, t, v, d, up }: { icon: React.ReactNode; t: string; v: stri
   );
 }
 
-const WAITING = [
-  { n: "Shah Furnishings", h: 210, msg: "Is Zyra 14 Ivory in stock? Need 60 m", why: "Product match 62%", wait: "6 min" },
-  { n: "Mehta Drapes", h: 28, msg: "Rate same rahega na?", why: "Asked about a rate", wait: "12 min", late: true },
+// Waiting, as the live Home draws it (merchant app, home-waiting.jsx): a grid of Case, Account, Contact,
+// Task, With (on Everyone) and Due, most overdue first.
+const WAITING: { c: string; acc: string; who: string; task: string; with: string | null; h: number; left: number }[] = [
+  { c: "1036", acc: "Mehta Drapes", who: "Priya Mehta", task: "Answer question", with: "Meera Joshi", h: 28, left: -4 },
+  { c: "1039", acc: "Shah Furnishings", who: "Arjun Shah", task: "Confirm product", with: "Ravi Shah", h: 210, left: 2 },
+  { c: "1040", acc: "Kapoor Decor", who: "+91 98200 41126", task: "Confirm product", with: null, h: 0, left: 9 },
+  { c: "1042", acc: "Patel Textiles", who: "Sana Patel", task: "Answer question", with: "Ravi Shah", h: 210, left: 12 },
 ];
 
 export default function DashPreview() {
@@ -126,7 +131,7 @@ export default function DashPreview() {
                   <small>Friday 6 Nov · <i /> Live</small>
                 </div>
                 <div className="mx-segs">
-                  <span className="mx-seg"><span className="on">Yours</span><span>Everyone</span></span>
+                  <span className="mx-seg"><span>Yours</span><span className="on">Everyone</span></span>
                   <span className="mx-seg"><span className="on">Today</span><span>Yesterday</span><span>Custom {ic.pen}</span></span>
                 </div>
               </div>
@@ -145,14 +150,26 @@ export default function DashPreview() {
                 <b>Waiting</b>
                 <p>Customers Order Desk has handed to you, most overdue first.</p>
               </div>
-              <div className="mx-card mx-wait">
+              <div className="mx-card mx-grid">
+                <div className="mx-tr mx-th">
+                  <span>Case</span><span>Account</span><span>Contact</span><span>Task</span><span>With</span><span className="r">Due</span>
+                </div>
                 {WAITING.map((w) => (
-                  <div className="mx-wr" key={w.n}>
-                    <span className="mx-av" style={{ background: `hsl(${w.h} 62% 93%)`, color: `hsl(${w.h} 52% 32%)` }}>{w.n[0]}</span>
-                    <span className="mx-wt"><b>{w.n}</b><span>“{w.msg}”</span></span>
-                    <span className="mx-why">{w.why}</span>
-                    <span className={`mx-wait-t${w.late ? " late" : ""}`}>{ic.clock}{w.wait}</span>
-                    <span className="mx-btn">Open</span>
+                  <div className="mx-tr" key={w.c}>
+                    <span className="mx-case">{w.c}</span>
+                    <span className="mx-b">{w.acc}</span>
+                    <span className="mx-m">{w.who}</span>
+                    <span><span className="mx-task">{w.task}</span></span>
+                    <span className="mx-with">
+                      {w.with ? (
+                        <><span className="mx-av" style={{ background: `hsl(${w.h} 62% 93%)`, color: `hsl(${w.h} 52% 32%)` }}>{w.with.split(" ").map((x) => x[0]).join("")}</span>{w.with}</>
+                      ) : (
+                        <><span className="mx-av mx-un">{ic.user}</span><span className="mx-m">Unassigned</span></>
+                      )}
+                    </span>
+                    <span className={`r mx-due${w.left <= 0 ? " over" : w.left <= 3 ? " soon" : ""}`}>
+                      {w.left <= 0 ? `${Math.abs(w.left)} min over` : `${w.left} min left`}
+                    </span>
                   </div>
                 ))}
               </div>

@@ -87,3 +87,22 @@
 .mx-wait-t.late { color: #dc2626; }
 .mx-wait-t svg { width: 16px; height: 16px; }
 .mx-btn { height: 36px; padding: 0 16px; display: flex; align-items: center; border-radius: 9px; background: #171717; color: #fafafa; font-weight: 500; }
+
+/* Waiting: the live grid (Case · Account · Contact · Task · With · Due) */
+.mx-grid { overflow: hidden; }
+.mx-tr { display: grid; grid-template-columns: 110px 1.2fr 1.1fr 200px 220px 140px; align-items: center; gap: 16px; height: 58px; padding: 0 22px; border-top: 1px solid var(--line); }
+.mx-tr:first-child { border-top: 0; }
+.mx-th { height: 46px; background: #fafafa; color: var(--mute); font-size: 14px; font-weight: 500; }
+.mx-tr .r { text-align: right; }
+.mx-case { font-variant-numeric: tabular-nums; color: #404040; }
+.mx-b { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mx-m { color: var(--mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mx-task { display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 99px; font-size: 13px; font-weight: 500;
+  color: #9a6208; background: #fef6e0; box-shadow: inset 0 0 0 1px #f7dfa6; }
+.mx-with { display: flex; align-items: center; gap: 10px; min-width: 0; white-space: nowrap; }
+.mx-with .mx-av { width: 28px; height: 28px; font-size: 11px; }
+.mx-un { background: #f4f4f5; color: var(--mute); }
+.mx-un svg { width: 15px; height: 15px; }
+.mx-due { font-variant-numeric: tabular-nums; color: var(--mute); }
+.mx-due.soon { color: #9a6208; }
+.mx-due.over { color: #dc2626; font-weight: 500; }
