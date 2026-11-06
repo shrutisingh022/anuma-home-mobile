@@ -5,46 +5,63 @@ import AgentTabs from "@/components/AgentTabs";
 import TeamFeatures from "@/components/TeamFeatures";
 import DockCta from "@/components/DockCta";
 import Reveal from "@/components/Reveal";
-import { FaqChat, Industries } from "@/components/Lists";
-import { LiquidButton, LiquidDefs, Logo } from "@/components/Icons";
-import { CircleCheck, Lock, Server, Undo2 } from "@/components/PixelIcons";
-import { ASK_AI } from "@/lib/site";
+import { LiquidButton, LiquidDefs, Mark } from "@/components/Icons";
+import { WA_URL } from "@/lib/site";
 
 /*
-  Visual system: the live anuma.co.in (painted cards, liquid pill, hairline cards, Morse stages, chat FAQ).
-  Content and order: the v2 demo, with the 6 Nov call's changes (outcomes lead, ERP gets its own moment).
-  Button copy is the demo's: "Start chat", "See how it works".
+  Layout, order and every word: anuma-home-mobile-v2.html (6 Nov), unchanged.
+  Visual language: the live anuma.co.in (see app/live.css).
 */
 
-const WORKS_WITH: [string, string][] = [
-  ["Tally", "/erp/tally.png"],
-  ["SAP", "/erp/sap.svg"],
-  ["Zoho", "/erp/zoho.svg"],
-  ["Odoo", "/erp/odoo.png"],
-  ["Microsoft Dynamics", "/erp/dynamics.svg"],
+const INDUSTRIES: [string, string, string][] = [
+  ["Fabric and textiles", "Swatch photos, shades, rolls and metres", "M3 6c2.3-1.6 4.7 1.6 7 0s4.7 1.6 7 0M3 10c2.3-1.6 4.7 1.6 7 0s4.7 1.6 7 0M3 14c2.3-1.6 4.7 1.6 7 0s4.7 1.6 7 0"],
+  ["Consumer electronics", "Daily stock to every distributor", "M7 3h6a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2zM8.5 14h3"],
+  ["Electricals", "Thousands of SKUs, RFQs of 900 lines", "M11 2.5L5 11h4.5L8.5 17.5 15 8.5h-4.5z"],
+  ["Pumps", "Specs and drawings in, custom quotes out", "M10 3.5a6.5 6.5 0 110 13 6.5 6.5 0 010-13zM10 10l3-4M10 10l-4.5 1M10 10l1.5 4.8"],
+  ["Die casting", "Part drawings, tooling and repeat orders", "M3.5 7h13v8.5h-13zM6.5 7V4.5h7V7M7 11h6"],
+  ["Pipes and fittings", "Sizes, grades and project tenders", "M2.5 8h9a3 3 0 013 3v6.5M2.5 12h7a1 1 0 011 1v4.5"],
+  ["Gears and machining", "Drawings in, quotes out, fast", "M10 7.4a2.6 2.6 0 110 5.2 2.6 2.6 0 010-5.2zM10 2.5v2.4M10 15.1v2.4M2.5 10h2.4M15.1 10h2.4M4.7 4.7l1.7 1.7M13.6 13.6l1.7 1.7M4.7 15.3l1.7-1.7M13.6 6.4l1.7-1.7"],
+  ["Steel and metals", "Rates that move every day", "M3 5h14M3 10h14M3 15h14"],
+  ["Pharma and chemicals", "Grades, batches and repeat orders", "M8 2.5h4M8.5 2.5v5L4 15.5a1.3 1.3 0 001.1 2h9.8a1.3 1.3 0 001.1-2L11.5 7.5v-5M6.3 12h7.4"],
+  ["Export and custom goods", "A new product for every enquiry", "M3 12.5h14l-2 4H5zM6 12.5V7h8v5.5M10 7V3.5"],
+  ["Handcrafted goods", "Bulk orders for corporates and stores", "M7 3h6M8 3c0 2-3 3-3 7a5 5 0 0010 0c0-4-3-5-3-7"],
+  ["Packaging", "Sizes, prints and reorders", "M3 6.5L10 3l7 3.5v7L10 17l-7-3.5zM3 6.5l7 3.5 7-3.5M10 10v7"],
 ];
 
 const ERPS: [string, string][] = [
   ["Tally", "/erp/tally.png"],
   ["SAP", "/erp/sap.svg"],
-  ["Zoho", "/erp/zoho.svg"],
   ["Odoo", "/erp/odoo.png"],
+  ["Zoho", "/erp/zoho.svg"],
   ["Dynamics 365", "/erp/dynamics.svg"],
   ["ERPNext", "/erp/erpnext.svg"],
 ];
 
 const STEPS = [
-  { h: "Look", p: "We go through a day of your real orders, quotes and messages.", you: "You share a day of work", we: "You see where time goes" },
+  { h: "Look", p: "We go through a week of your real orders, quotes and messages. We find where your team's time goes.", you: "You share a week of work", we: "You see where time goes" },
   { h: "Plan", p: "We agree what Anuma does and what your team keeps doing.", you: "You approve the plan", we: "It's in writing" },
-  { h: "Set up", p: "We connect WhatsApp, email and your ERP, and load your catalogue and rates.", you: "You give us access", we: "Your own orders, prepared" },
-  { h: "Run", p: "We run it with you every day. It gets better each time your team corrects it.", you: "Your team approves orders", we: "We handle the rest" },
+  { h: "Set up", p: "We connect your WhatsApp, email and ERP, and load your catalogue and rates.", you: "You give us access", we: "You see your own orders, prepared" },
+  { h: "Run", p: "We run it with you every day and fix what goes wrong. It gets better each time your team corrects it.", you: "Your team approves orders", we: "We handle the rest" },
 ];
 
 const DATA = [
-  { I: CircleCheck, h: "Nothing goes out without a yes", p: "Every order and quote waits for your team to approve it." },
-  { I: Lock, h: "Your data is only yours", p: "Your BOMs, rates and customers are never shared with anyone." },
-  { I: Undo2, h: "Easy to stop", p: "Orders are saved in your own ERP. Stop Anuma and work carries on." },
-  { I: Server, h: "In your own cloud", p: "Your own AWS account, with Claude on Amazon Bedrock. Data stays in India." },
+  { h: "Nothing goes out without a yes", p: "Every order and quote waits for your team to approve it.", d: "M4.5 10.5l3.5 3.5 7.5-8", w: 2 },
+  { h: "Your data is only yours", p: "Your BOMs, rates and customers are never shared with anyone.", d: "M6 9h8a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4a2 2 0 012-2zM7 9V6.5a3 3 0 016 0V9", w: 1.8 },
+  { h: "Easy to stop", p: "Your orders are saved in your own ERP. If you stop Anuma, your work carries on as before.", d: "M10 3.5v6M6.4 6a5.8 5.8 0 107.2 0", w: 1.8 },
+  { h: "In your own cloud", p: "Run it in your own AWS account, with Claude on Amazon Bedrock. Your data stays in India.", d: "M5.5 14.5a3.5 3.5 0 01-.3-7A5 5 0 0114.6 6a4 4 0 01.4 8.5z", w: 1.7 },
+];
+
+const FAQ: [string, string][] = [
+  ["What is this, and what do I do?", "Your team keeps doing the selling. Anuma does the reading, typing and checking, and hands them a ready order or quote. They check it and say yes."],
+  ["Do my customers have to change how they order?", "No. They keep sending WhatsApp messages, emails, photos and voice notes. There is nothing for them to download."],
+  ["Will it work with my ERP?", "Yes. Tally, SAP, Odoo, Zoho, Dynamics and ERPNext. If yours is custom, we connect to it, or start with Excel."],
+  ["My products are custom. Can it handle that?", "It learns from your own old quotes, orders and catalogue. When it isn't sure, it asks your team. Every answer makes it better."],
+  ["Can I see it on my kind of enquiry?", "Yes. We start by looking at a week of your real orders, before we build anything."],
+  ["Will my team use it, or is it one more app?", "Your team keeps using WhatsApp and Tally. They get one screen on their phone to approve orders. It removes the typing, not the people."],
+  ["Can I make changes myself?", "Yes. Add products, change rates and fix a wrong match yourself. We help with the bigger changes."],
+  ["How long before it works?", "You see your first orders prepared within days. It gets better every week."],
+  ["Can I see every enquiry and salesperson in one place?", "Yes. Every enquiry, quote and order, who is handling it and what is pending. You get a summary every morning."],
+  ["Is my data safe? What if you shut down?", "Your data is kept private and separate. Your orders and quotes are saved in your own ERP, so they stay with you."],
 ];
 
 export default function Home() {
@@ -54,202 +71,166 @@ export default function Home() {
       <Header />
 
       <main id="top">
-        {/* HERO: the painted card */}
-        <section className="hero">
-          <div className="hero-card">
-            <div className="hero-pic" aria-hidden="true">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/art/hero-mobile.webp" alt="" fetchPriority="high" />
-            </div>
-            <h1 className="t-h1">AI agents for Indian manufacturers.</h1>
-            <p className="t-hero-lede">Every enquiry, from every channel, handled until it&apos;s paid. Inside the ERP you already run.</p>
-            <div className="hero-actions">
-              <LiquidButton size="wide" />
-              <a className="link-arrow" href="#platform">See how it works</a>
-            </div>
-            <div className="ww">
-              <p className="ww-label">Works with</p>
-              <ul className="ww-list" aria-label="Works with Tally, SAP, Zoho, Odoo and Microsoft Dynamics">
-                {WORKS_WITH.map(([n, src]) => (
-                  <li className="ww-dot" key={n} title={n}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={src} alt={n} width={18} height={18} />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+        {/* HERO */}
+        <section className="hero wrap">
+          <h1>
+            <em>AI agents</em> for Indian manufacturers.
+          </h1>
+          <p className="lede">Every enquiry, from every channel, handled until it&apos;s paid. Inside the ERP you already run.</p>
+          <DashPreview />
         </section>
 
-        <div className="shot">
-          <DashPreview />
-        </div>
-
-        {/* OUTCOMES lead */}
-        <section className="section wrap" id="clients">
-          <div className="head">
-            <span className="t-eyebrow">From our clients</span>
-            <h2 className="t-h2">Already running at businesses like yours.</h2>
+        {/* WHO IT'S FOR */}
+        <section className="sec band wrap" id="who">
+          <span className="lbl">Who it&apos;s for</span>
+          <h2>Made for businesses that sell in bulk.</h2>
+          <p className="intro">Your customers order on WhatsApp, email or calls. Your team types it all into the ERP. That&apos;s who Anuma is for.</p>
+          <div className="sellto">
+            <span className="sl">You sell to</span>
+            {["Dealers", "Distributors", "Retailers", "Project buyers", "Exporters"].map((s) => <span key={s}>{s}</span>)}
           </div>
-          <div className="stats rv">
-            {/* TODO: confirm both numbers with the clients before ads go live */}
-            <div className="case-stat">
-              <b className="t-stat">3,000 → 1</b>
-              <span className="t-small">WhatsApp groups into one agent</span>
-              <span className="by">NuHome</span>
-            </div>
-            <div className="case-stat">
-              <b className="t-stat">8 min</b>
-              <span className="t-small">to send a quote, down from 14 days</span>
-              <span className="by">Axis Electricals</span>
-            </div>
+          <div className="inds">
+            {INDUSTRIES.map(([b, p, d]) => (
+              <div className="ind rv" key={b}>
+                <span className="iic">
+                  <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <path d={d} stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                <b>{b}</b>
+                <p>{p}</p>
+              </div>
+            ))}
+          </div>
+          <p className="notfor">Not for online sellers or marketplace stores yet. Anuma is built for orders between businesses.</p>
+        </section>
+
+        {/* CLIENT VIDEOS */}
+        <section className="sec c wrap" id="clients">
+          <span className="lbl">From our clients</span>
+          <h2>Already running at businesses like yours.</h2>
+          <div className="stats">
+            <div className="stat"><b>3,000 → 1</b><span>WhatsApp groups into one agent</span><small>NuHome</small></div>
+            <div className="stat"><b>8 min</b><span>to send a quote, down from 14 days</span><small>Axis Electricals</small></div>
           </div>
           <ClientReel />
         </section>
 
-        {/* WHO IT'S FOR */}
-        <section className="section wrap" id="who">
-          <div className="head">
-            <span className="t-eyebrow">Who it&apos;s for</span>
-            <h2 className="t-h2">Made for businesses that sell in bulk.</h2>
-            <p className="t-lede">Your customers order on WhatsApp, email or calls. Your team types it all into the ERP.</p>
-          </div>
-          <div className="sell">
-            <span className="t-small">You sell to</span>
-            {["Dealers", "Distributors", "Retailers", "Project buyers", "Exporters"].map((s) => (
-              <span className="chip" key={s}>{s}</span>
-            ))}
-          </div>
-          <Industries />
-          <p className="notfit">
-            <b>Not for online sellers or marketplace stores yet.</b> Anuma is built for orders between businesses.
-          </p>
-        </section>
-
-        {/* AGENTS */}
-        <section className="section wrap" id="platform">
-          <div className="head">
-            <span className="t-eyebrow">The agents</span>
-            <h2 className="t-h2">The agents type. Your team sells.</h2>
-            <p className="t-lede">Each agent takes one job your team does by hand. Start with one, add the rest later.</p>
-          </div>
-          <AgentTabs />
-        </section>
-
-        {/* ERP: its own moment, bigger logos */}
-        <section className="section wrap" id="erp">
-          <div className="head is-center">
-            <span className="t-eyebrow">Your ERP</span>
-            <h2 className="t-h2">Everything lands in your ERP.</h2>
-            <p className="t-lede">Orders, quotes and payments, saved where your accounts team already works.</p>
-          </div>
-          <div className="erp-grid">
-            {ERPS.map(([n, src]) => (
-              <div className="erp-tile rv" key={n}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={src} alt="" width={40} height={40} loading="lazy" />
-                <span>{n}</span>
+        {/* THE AGENTS */}
+        <section className="sec band" id="platform">
+          <div className="wrap">
+            <span className="lbl">The agents</span>
+            <h2>The agents do the typing. Your team does the selling.</h2>
+            <p className="intro">Each agent takes one job your team does by hand today. Start with one, add the rest later.</p>
+            <AgentTabs />
+            <div className="erpline">
+              <span>Everything lands in your ERP</span>
+              <div className="lgs">
+                {ERPS.map(([n, src]) => (
+                  <span className="lc" key={n}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={src} alt={n} title={n} />
+                  </span>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-          <p className="t-small erp-note">Custom ERP? <b>We connect to it,</b> or start with Excel.</p>
         </section>
 
-        {/* TEAM */}
-        <section className="section wrap" id="team">
-          <div className="head">
-            <span className="t-eyebrow">What Excel and WhatsApp can&apos;t do</span>
-            <h2 className="t-h2">Built for your whole team.</h2>
-            <p className="t-lede">Owners, sales, reps and accounts each get what they need. Tap the demos.</p>
+        {/* FEATURES */}
+        <section className="sec" id="team">
+          <div className="wrap">
+            <span className="lbl">What Excel and WhatsApp can&apos;t do</span>
+            <h2>Built for your whole team.</h2>
+            <p className="intro">Owners, sales, reps and accounts each get what they need. Tap the demos. The numbers are sample data.</p>
+            <TeamFeatures />
           </div>
-          <TeamFeatures />
         </section>
 
-        {/* HOW WE START */}
-        <section className="section wrap" id="process">
-          <div className="head">
-            <span className="t-eyebrow">How we start</span>
-            <h2 className="t-h2">We set it up. You approve first.</h2>
-            <p className="t-lede">The same team stays with you, from the first chat to every day after.</p>
-          </div>
-          <ol className="case-flow">
-            {STEPS.map((s, i) => (
-              <li key={s.h} className="rv">
-                <span className="case-orb">{i + 1}</span>
-                <div className="card">
-                  <h3 className="t-h3">{s.h}</h3>
-                  <p>{s.p}</p>
-                  <div className="give"><span className="you">{s.you}</span><span>{s.we}</span></div>
+        {/* PROCESS */}
+        <section className="sec band" id="process">
+          <div className="wrap">
+            <span className="lbl">How we start</span>
+            <h2>We set it up with you. You approve before we build.</h2>
+            <p className="intro">The same team stays with you, from the first chat to every day after.</p>
+            <div className="steps">
+              {STEPS.map((s, i) => (
+                <div className="step rv" key={s.h}>
+                  <span className="n">{i + 1}</span>
+                  <div className="card body">
+                    <h3>{s.h}</h3>
+                    <p>{s.p}</p>
+                    <div className="give"><span className="you">{s.you}</span><span>{s.we}</span></div>
+                  </div>
                 </div>
-              </li>
-            ))}
-          </ol>
+              ))}
+            </div>
+          </div>
         </section>
 
         {/* YOUR DATA */}
-        <section className="section wrap" id="data">
-          <div className="head">
-            <span className="t-eyebrow">Your data</span>
-            <h2 className="t-h2">Your prices stay yours.</h2>
-          </div>
-          <div className="sv-list data-list">
-            {DATA.map(({ I, h, p }) => (
-              <div className="sv-row" key={h}>
-                <span className="sv-tile"><I aria-hidden /></span>
-                <span><b>{h}</b><span>{p}</span></span>
-              </div>
-            ))}
+        <section className="sec c" id="data">
+          <div className="wrap">
+            <span className="lbl">Your data</span>
+            <h2>Your prices stay yours.</h2>
+            <p className="intro">Anuma sees your rates, customers and margins. It keeps them private, and does nothing without your team&apos;s okay.</p>
+            <div className="cards dgrid">
+              {DATA.map((c) => (
+                <div className="card pc rv" key={c.h}>
+                  <span className="pi">
+                    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                      <path d={c.d} stroke="currentColor" strokeWidth={c.w} strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                  <h3>{c.h}</h3>
+                  <p>{c.p}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* QUESTIONS */}
-        <section className="section wrap" id="questions">
-          <div className="head is-center">
-            <span className="t-eyebrow">Questions</span>
-            <h2 className="t-h2">What owners ask us first.</h2>
+        {/* QUESTIONS FROM CALLS */}
+        <section className="sec band c wrap" id="questions">
+          <span className="lbl">Questions</span>
+          <h2>What owners ask us first.</h2>
+          <div className="card qs">
+            {FAQ.map(([q, a], i) => (
+              <details key={q} open={i === 0}>
+                <summary>{q}</summary>
+                <p>{a}</p>
+              </details>
+            ))}
           </div>
-          <FaqChat />
-          <p className="faq-else">
-            Something else? <a href="https://wa.me/919167000410" target="_blank" rel="noopener">Start a chat</a>. A person replies.
+          <p className="else">
+            Something else? <a href={WA_URL} target="_blank" rel="noopener">Start a chat</a>. A person replies.
           </p>
         </section>
 
-        {/* CLOSING: the painted end card */}
-        <section className="end">
-          <div className="end-card">
-            <h2 className="t-h2">Tell us how you work.</h2>
-            <p className="t-lede">Send us a message. We&apos;ll show you where to start.</p>
-            <div className="end-actions">
+        {/* FINAL */}
+        <section className="wrap" style={{ paddingBottom: "max(16px, env(safe-area-inset-bottom, 0px))" }}>
+          <div className="final">
+            <div className="fimg" style={{ backgroundImage: "url(/final.jpg)" }} />
+            <h2>Tell us how you work.</h2>
+            <p>Send us a message. We&apos;ll show you where to start.</p>
+            <div className="ctas">
               <LiquidButton size="wide" />
-              <a className="btn btn-glass" href="#platform">See how it works</a>
+              <a className="btn gl" href="#platform">See how it works</a>
+            </div>
+            <div className="fcard-foot">
+              <Mark />
+              <nav>
+                <a href="https://anuma.co.in/blog">Blog</a>
+                <a href="https://anuma.co.in/contact">Contact</a>
+                <a href="https://anuma.co.in/privacy">Privacy</a>
+                <a href="https://anuma.co.in/terms">Terms</a>
+                <a href="https://anuma.co.in/model-training">Model Training</a>
+              </nav>
+              <p>© 2026 Anuma Intelligence Private Limited</p>
             </div>
           </div>
         </section>
       </main>
-
-      <footer className="foot">
-        <Logo />
-        <nav aria-label="Footer">
-          <a href="https://anuma.co.in/blog">Blog</a>
-          <a href="https://anuma.co.in/contact">Contact</a>
-          <a href="https://anuma.co.in/privacy">Privacy</a>
-          <a href="https://anuma.co.in/terms">Terms</a>
-          <a href="https://anuma.co.in/model-training">Model Training</a>
-          <a href="/anuma.md">This page as text</a>
-        </nav>
-        <div className="askai">
-          <span className="t-small">Ask AI about Anuma</span>
-          <div>
-            {ASK_AI.map((a) => (
-              <a key={a.label} className="chip" href={a.href} target="_blank" rel="noopener">{a.label}</a>
-            ))}
-          </div>
-        </div>
-        <p className="legal">
-          <span>© 2026 Anuma Intelligence Private Limited</span>
-          <span>CIN U62099MH2026PTC474204 · DPIIT DIPP285119</span>
-        </p>
-      </footer>
 
       <DockCta />
       <Reveal />

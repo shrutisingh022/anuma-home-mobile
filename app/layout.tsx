@@ -9,7 +9,6 @@ export const metadata: Metadata = {
   description:
     "Every enquiry, from every channel, handled until it's paid. Inside the ERP you already run. Tally, SAP, Odoo, Zoho, Dynamics and ERPNext.",
   metadataBase: new URL("https://anuma.co.in"),
-  alternates: { types: { "text/markdown": "/anuma.md" } },
   openGraph: {
     title: "Anuma · AI agents for Indian manufacturers",
     description: "Every enquiry, from every channel, handled until it's paid. Inside the ERP you already run.",

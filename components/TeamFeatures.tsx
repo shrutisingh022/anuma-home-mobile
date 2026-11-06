@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 
-// Three features in the live media-card shape: an inset dotted stage on top, the copy below.
-function Seg<T extends string>({ opts, value, onChange, label }: { opts: [T, string][]; value: T; onChange: (v: T) => void; label: string }) {
+function Toggle<T extends string>({ opts, value, onChange, label }: { opts: [T, string][]; value: T; onChange: (v: T) => void; label: string }) {
   return (
-    <div className="seg" role="group" aria-label={label}>
+    <div className="tg" role="group" aria-label={label}>
       {opts.map(([v, l]) => (
         <button key={v} type="button" aria-pressed={v === value} onClick={() => onChange(v)}>
           {l}
@@ -49,11 +48,20 @@ export default function TeamFeatures() {
   const [approved, setApproved] = useState(false);
   const [rule, setRule] = useState<keyof typeof RULES>("a");
   const [role, setRole] = useState<keyof typeof ROLES>("o");
+  const [flow, setFlow] = useState<"on" | "off">("on");
 
   return (
-    <div className="feats">
-      <article className="feat rv">
-        <div className="feat-stage stage">
+    <>
+      <div className="feat">
+        <span className="dp a"><i />Mobile app</span>
+        <h3>Approve from your phone.</h3>
+        <p>For owners, sales and reps, on iOS and Android.</p>
+        <ul className="dia">
+          <li>Approve orders and quotes in one tap</li>
+          <li>Reps place orders from the market</li>
+          <li>Every customer&apos;s history in your pocket</li>
+        </ul>
+        <div className="panel">
           <div className="mphone">
             <div className="mnotch" />
             <div className="mscr">
@@ -75,38 +83,54 @@ export default function TeamFeatures() {
             </div>
           </div>
         </div>
-        <div className="feat-body">
-          <span className="t-eyebrow">Mobile app</span>
-          <h3 className="t-h3" style={{ marginTop: 6 }}>Approve from your phone.</h3>
-          <p className="t-lede">Approve orders and quotes in one tap. Reps place orders from the market.</p>
-          <div className="stores">
-            {/* TODO: real store links once the app is live */}
-            <a className="store" href="#team"><AppleIcon /><span><small>Download on the</small>App Store</span></a>
-            <a className="store" href="#team"><PlayStoreIcon /><span><small>Get it on</small>Google Play</span></a>
-          </div>
+        <div className="stores">
+          {/* TODO: swap for real store URLs once the app is live */}
+          <a className="store" href="#team"><AppleIcon /><span><small>Download on the</small>App Store</span></a>
+          <a className="store" href="#team"><PlayStoreIcon /><span><small>Get it on</small>Google Play</span></a>
         </div>
-      </article>
+      </div>
 
-      <article className="feat rv">
-        <div className="feat-stage stage">
-          <div className="panel-card" aria-live="polite">
+      <div className="feat">
+        <span className="dp v"><i />Rulebooks</span>
+        <h3>Write your rules once.</h3>
+        <p>Rates, discounts, credit limits and who approves what. Every order follows them.</p>
+        <div className="panel">
+          <div className="glass rule" aria-live="polite">
             <div className="rh"><b>Rulebook</b><small>applies to every order</small></div>
             {RULES[rule].map(([k, v]) => (
               <div className="rr" key={k}><span>{k}</span><b>{v}</b></div>
             ))}
           </div>
         </div>
-        <div className="feat-body">
-          <span className="t-eyebrow">Rulebooks</span>
-          <h3 className="t-h3" style={{ marginTop: 6 }}>Write your rules once.</h3>
-          <p className="t-lede">Rates, discounts, credit and who approves what. Every order follows them.</p>
-          <Seg label="Buyer type" value={rule} onChange={setRule} opts={[["a", "Band A dealer"], ["b", "Band B"], ["n", "New buyer"]]} />
-        </div>
-      </article>
+        <Toggle label="Buyer type" value={rule} onChange={setRule} opts={[["a", "Band A dealer"], ["b", "Band B"], ["n", "New buyer"]]} />
+      </div>
 
-      <article className="feat rv">
-        <div className="feat-stage stage">
-          <div className="panel-card" aria-live="polite">
+      <div className="feat">
+        <span className="dp r"><i />Custom workflows</span>
+        <h3>Your steps, in your order.</h3>
+        <p>Add the step only your business has. Anuma follows it every time.</p>
+        <div className="panel">
+          <div className="glass flowx">
+            <span className="fs">Enquiry</span><span className="fa">›</span>
+            <span className="fs">Quote</span><span className="fa">›</span>
+            {flow === "on" && (
+              <>
+                <span className="fs cus">Partner approval above ₹5L</span><span className="fa">›</span>
+              </>
+            )}
+            <span className="fs">Order</span><span className="fa">›</span>
+            <span className="fs">Dispatch</span>
+          </div>
+        </div>
+        <Toggle label="Workflow" value={flow} onChange={setFlow} opts={[["on", "With your step"], ["off", "Standard"]]} />
+      </div>
+
+      <div className="feat last">
+        <span className="dp k"><i />Roles and approvals</span>
+        <h3>Everyone sees only what they should.</h3>
+        <p>Decide who sees, edits and approves. Every action is logged.</p>
+        <div className="panel">
+          <div className="glass roles" aria-live="polite">
             {ROLES[role].map(([k, y]) => (
               <div className={`pr ${y ? "y" : "n"}`} key={k}>
                 <span className="pk">{y ? "✓" : "✕"}</span>
@@ -116,13 +140,8 @@ export default function TeamFeatures() {
             <div className="plog">Last action · Ravi approved SO-1042 · 10:44</div>
           </div>
         </div>
-        <div className="feat-body">
-          <span className="t-eyebrow">Roles and approvals</span>
-          <h3 className="t-h3" style={{ marginTop: 6 }}>Everyone sees only what they should.</h3>
-          <p className="t-lede">Decide who sees, edits and approves. Every action is logged.</p>
-          <Seg label="Role" value={role} onChange={setRole} opts={[["o", "Owner"], ["s", "Sales"], ["r", "Rep"]]} />
-        </div>
-      </article>
-    </div>
+        <Toggle label="Role" value={role} onChange={setRole} opts={[["o", "Owner"], ["s", "Sales"], ["r", "Rep"]]} />
+      </div>
+    </>
   );
 }

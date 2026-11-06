@@ -66,3 +66,21 @@ export function LiquidDefs() {
     </svg>
   );
 }
+
+/** The logo as the HTML draws it (two bars), for the header tile, dashboard and footer. */
+export function Mark() {
+  return (
+    <span className="mark" aria-hidden="true">
+      <i />
+      <i />
+    </span>
+  );
+}
+
+export function PlayIcon() {
+  return (
+    <svg viewBox="0 0 20 20" aria-hidden="true">
+      <path fill="currentColor" d="M6 3.8v12.4a.8.8 0 001.2.7l10-6.2a.8.8 0 000-1.4l-10-6.2A.8.8 0 006 3.8z" />
+    </svg>
+  );
+}

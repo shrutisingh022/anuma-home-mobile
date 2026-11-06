@@ -1,0 +1,168 @@
+/* ============================================================================
+   The live anuma.co.in visual language, laid over the v2 HTML's layout.
+   Layout, sizes and order stay as the HTML has them (base.css). This file only
+   changes the skin: ink on warm paper, one hairline card shell, IBM Plex Sans,
+   the black liquid pill, frosted glass, Morse dot stages, no green accent.
+   ========================================================================== */
+:root {
+  --bg: #ffffff;
+  --band: #f8f7f4;
+  --card: #ffffff;
+  --ink: #1f1f1f;
+  --ink-2: #3d3d3d;
+  --ink-3: #666666;
+  --ink-4: #a8a8a8;
+  --line: #ececec;
+  --line-2: #f0f0f0;
+  --accent: #1f1f1f;
+  --accent-2: #3d3d3d;
+  --accent-soft: #f1f1ef;
+  --green: #2f7d4f;
+  --green-soft: #e4f1e8;
+  --stage: #f4f4f2;
+  --marigold: #f2b53a;
+  --sans: var(--font-plex-sans), "IBM Plex Sans", system-ui, sans-serif;
+  --display: var(--font-plex-sans), "IBM Plex Sans", system-ui, sans-serif;
+  --morse-dots: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22182%22 height=%2248%22 viewBox=%220 0 182 48%22%3E%3Cg fill=%22%23111%22 fill-opacity=%220.085%22%3E%3Ccircle cx=%227%22 cy=%2212%22 r=%221.1%22/%3E%3Crect x=%2212%22 y=%2210.9%22 width=%227%22 height=%222.2%22 rx=%221.1%22/%3E%3Crect x=%2231%22 y=%2210.9%22 width=%227%22 height=%222.2%22 rx=%221.1%22/%3E%3Ccircle cx=%2243%22 cy=%2212%22 r=%221.1%22/%3E%3Ccircle cx=%2257%22 cy=%2212%22 r=%221.1%22/%3E%3Ccircle cx=%2263%22 cy=%2212%22 r=%221.1%22/%3E%3Crect x=%2268%22 y=%2210.9%22 width=%227%22 height=%222.2%22 rx=%221.1%22/%3E%3Crect x=%2287%22 y=%2210.9%22 width=%227%22 height=%222.2%22 rx=%221.1%22/%3E%3Crect x=%2298%22 y=%2210.9%22 width=%227%22 height=%222.2%22 rx=%221.1%22/%3E%3Ccircle cx=%22118%22 cy=%2212%22 r=%221.1%22/%3E%3Crect x=%22123%22 y=%2210.9%22 width=%227%22 height=%222.2%22 rx=%221.1%22/%3E%3Ccircle cx=%2298%22 cy=%2236%22 r=%221.1%22/%3E%3Crect x=%22103%22 y=%2234.9%22 width=%227%22 height=%222.2%22 rx=%221.1%22/%3E%3Crect x=%22122%22 y=%2234.9%22 width=%227%22 height=%222.2%22 rx=%221.1%22/%3E%3Ccircle cx=%22134%22 cy=%2236%22 r=%221.1%22/%3E%3Ccircle cx=%22148%22 cy=%2236%22 r=%221.1%22/%3E%3Ccircle cx=%22154%22 cy=%2236%22 r=%221.1%22/%3E%3Crect x=%22159%22 y=%2234.9%22 width=%227%22 height=%222.2%22 rx=%221.1%22/%3E%3Crect x=%227%22 y=%2234.9%22 width=%227%22 height=%222.2%22 rx=%221.1%22/%3E%3Ccircle cx=%2227%22 cy=%2236%22 r=%221.1%22/%3E%3Crect x=%2232%22 y=%2234.9%22 width=%227%22 height=%222.2%22 rx=%221.1%22/%3E%3C/g%3E%3C/svg%3E");
+  --morse-size: 182px 48px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+html { background: var(--bg); }
+body { background: linear-gradient(180deg, #fff 0%, #f8f8f6 100%); padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+body::before { background: #fff; }
+h1, h2, h3 { font-weight: 500; }
+.dash { font-family: var(--sans); }
+:focus-visible { outline-color: var(--ink); }
+
+/* ---------- header: the HTML's centred tile, in ink ---------- */
+.hdr { background: rgba(255, 255, 255, 0.8); transition: box-shadow 0.25s; }
+.tile { background: var(--ink); border-radius: 12px; box-shadow: 0 8px 18px -10px rgba(17, 17, 17, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.18); }
+
+/* ---------- headline emphasis: the live marigold highlight, not a colour change ---------- */
+.hero h1 em { color: var(--ink); background: linear-gradient(transparent 62%, rgba(242, 181, 58, 0.45) 62%, rgba(242, 181, 58, 0.45) 92%, transparent 92%); padding: 0 2px; border-radius: 2px; }
+
+/* ---------- section labels: live eyebrow (sans, sentence case, muted) ---------- */
+.lbl, .sec .lbl { font-family: var(--sans); font-size: 13px; font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--ink-3); }
+.sec h2 { font-weight: 500; }
+
+/* ---------- one card shell, as on the live site ---------- */
+.card, .ind, .stat, .part, .outs div, .bi .card, .mini { box-shadow: none; border: 1px solid var(--line); }
+.card { border-radius: 24px; }
+.ind, .stat { border-radius: 20px; }
+.part { border-radius: 24px; }
+
+/* ---------- pills and chips ---------- */
+.sellto span { box-shadow: none; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.8); font-weight: 500; color: var(--ink-2); }
+.sellto .sl { border: 0; background: none; }
+.dp { border-width: 1px; border-color: var(--line) !important; background: #fff !important; color: var(--ink-2) !important; }
+.dp i { background: var(--ink); }
+.dp.a i { background: var(--marigold); } .dp.v i { background: #6a88e2; } .dp.r i { background: #e0673f; } .dp.k i { background: var(--ink); }
+.ptag { font-family: var(--sans); border-color: var(--line); background: #fff; color: var(--ink-2); font-weight: 500; }
+.run { color: var(--ink-2); background: var(--stage); }
+.run i { background: var(--green); }
+
+/* ---------- icon tiles: the live sv-tile (warm stage, ink mark) ---------- */
+.iic, .pc .pi { background: var(--stage); color: var(--ink); }
+.dgrid .pc .pi, .pc .pi { border-radius: 12px; }
+
+/* ---------- visuals sit on the live Morse dot stage ---------- */
+.art, .part:nth-child(2n) .art, .part:nth-child(3n) .art, .panel {
+  background-color: var(--stage); background-image: var(--morse-dots); background-size: var(--morse-size);
+  box-shadow: none;
+}
+.wg, .glass { background: #fff; border: 1px solid var(--line); box-shadow: 0 12px 28px -18px rgba(30, 30, 40, 0.4); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.w-bar i { background: var(--green); }
+.w-yes { background: var(--ink); }
+.w-sync { color: var(--green); }
+.up { background: #fbe9dc; color: #9a4a22; }
+.dia li::before { background: var(--ink); width: 7px; height: 7px; top: 8px; border-radius: 2px; }
+
+/* ---------- toggles: live soft grey pill, ink when on ---------- */
+.agchips button, .tg button { border: 1px solid var(--line); background: #fff; color: var(--ink-2); font-weight: 500; }
+.agchips button[aria-pressed="true"], .tg button[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: #fff; }
+.myes { background: var(--ink); }
+.myes.done { background: var(--green-soft); color: var(--green); }
+.pr.y .pk { background: var(--green-soft); color: var(--green); }
+.fs.cus { background: #fdeee6; color: #9a4a22; box-shadow: inset 0 0 0 1px #f3cdb8; }
+
+/* ---------- stats ---------- */
+.stat b { color: var(--ink); font-weight: 500; }
+
+/* ---------- steps: the live gradient orbs on a dashed line ---------- */
+.step::before { width: 2px; background: linear-gradient(180deg, #1f1f1f 0 6px, transparent 6px 10px) 0 0 / 2px 10px repeat-y; opacity: 0.25; }
+.step .n {
+  border-radius: 50%; color: #2e4638; border: 1px solid rgba(255, 255, 255, 0.75); font-weight: 500;
+  background:
+    radial-gradient(70% 55% at 30% 18%, #cfe0ee 0%, rgba(207, 224, 238, 0) 72%),
+    radial-gradient(60% 50% at 80% 45%, #eef1e9 0%, rgba(238, 241, 233, 0) 75%),
+    radial-gradient(90% 60% at 40% 100%, #a9c3ad 0%, rgba(169, 195, 173, 0) 75%),
+    linear-gradient(180deg, #dfe9ef 0%, #c8d8cb 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 8px 20px -14px rgba(46, 70, 56, 0.45);
+}
+.step:first-child .n { color: #fff; background: radial-gradient(80% 60% at 50% 0%, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 70%), #1f1f1f; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 8px 18px -10px rgba(17, 17, 17, 0.55); }
+.step .give span.you { background: #fbefd6; color: #7a4b00; }
+
+/* ---------- ERP line: the live works-with circles, larger ---------- */
+.erpline .lc { box-shadow: 0 0 0 1px rgba(17, 17, 17, 0.08), 0 4px 10px -6px rgba(17, 17, 17, 0.3); }
+
+/* ---------- client reel ---------- */
+.vid .frame { box-shadow: 0 24px 48px -30px rgba(17, 17, 17, 0.55); }
+.vid .todo { background: #fbe7bd; color: #7a4b00; }
+.dots i.on { background: var(--ink); }
+
+/* ---------- questions: the live FAQ rows ---------- */
+.qs { padding: 4px; }
+details { border-bottom-color: var(--line-2); padding: 0 16px; border-radius: 16px; transition: background 0.2s; }
+details:hover { background: #f8f3ec; }
+summary { font-weight: 500; }
+summary::after { border-color: var(--ink-2); }
+details[open] summary::after { border-color: #c2652a; }
+.else a { color: var(--ink); font-weight: 500; text-decoration: none; border-bottom: 1px solid currentColor; }
+
+/* ---------- buttons: the live liquid pill and frosted glass ---------- */
+.btn.gl {
+  color: #fff; border: 1px solid rgba(255, 255, 255, 0.45);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.1) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 10px 24px -14px rgba(0, 0, 0, 0.4);
+  height: 48px; padding: 0 24px; font-weight: 500;
+}
+.final .ctas { gap: 10px; }
+.final .ctas .btn-liquid, .final .ctas .btn.gl { width: 100%; max-width: 300px; }
+.final h2, .final p { font-weight: 500; }
+.final p { font-weight: 400; }
+
+.btn-liquid {
+  position: relative; isolation: isolate; display: inline-flex; align-items: center; height: 48px; padding: 0 46px 0 24px;
+  border-radius: 999px; font: 500 15px/1 var(--sans); color: #fff; white-space: nowrap; text-decoration: none;
+  --lq-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.lq-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.lq-shapes { position: absolute; inset: -12px; z-index: -1; filter: url(#lq-goo); pointer-events: none; }
+.lq-pill { position: absolute; inset: 12px; border-radius: 999px; background: var(--ink); transition: right 0.55s var(--lq-ease); }
+.lq-dot { position: absolute; top: 18px; right: 18px; width: 36px; height: 36px; border-radius: 50%; background: var(--ink); transition: transform 0.55s var(--lq-ease); }
+.lq-icon { position: absolute; top: 6px; right: 6px; width: 36px; height: 36px; display: grid; place-items: center; transition: transform 0.55s var(--lq-ease); }
+.lq-icon svg { width: 18px; height: 18px; fill: #fff; }
+.btn-liquid:is(:hover, :focus-visible) .lq-pill { right: 46px; }
+.btn-liquid:is(:hover, :focus-visible) .lq-dot, .btn-liquid:is(:hover, :focus-visible) .lq-icon { transform: translateX(16px); }
+.btn-liquid.is-wide { justify-content: center; padding: 0 58px; }
+.final .btn-liquid .lq-pill, .final .btn-liquid .lq-dot { background: #fff; }
+.final .btn-liquid { color: var(--ink); }
+.final .btn-liquid .lq-icon svg { fill: var(--ink); }
+
+/* sticky Start chat: always on, as in the HTML */
+.dock { position: fixed; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 25; transform: translate(-50%, 160%); transition: transform 0.4s var(--ease); }
+.dock.show { transform: translate(-50%, 0); }
+.dock .btn-liquid { height: 52px; padding: 0 50px 0 28px; border-radius: 999px; box-shadow: 0 16px 32px -14px rgba(17, 17, 17, 0.55); }
+@media (prefers-reduced-motion: reduce) { .btn-liquid :is(.lq-pill, .lq-dot, .lq-icon), .dock { transition: none; } }
+
+/* ---------- dashboard preview: the live hero-shot shadow ---------- */
+.dashfit { border-radius: 12px; box-shadow: 0 0 0 1px rgba(22, 22, 21, 0.06), 0 40px 80px -40px rgba(40, 50, 110, 0.35), 0 12px 24px -16px rgba(22, 22, 21, 0.18); }
+.dw-bars i.now { background: var(--ink); }
+
+/* ---------- reveal ---------- */
+.js .rv { opacity: 0; transform: translateY(14px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+.js .rv.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .js .rv { opacity: 1; transform: none; } }
+
+/* the demo's Approve is a real button */
+button.myes { border: 0; font: inherit; font-weight: 600; font-size: 11.5px; padding: 6px 0; flex: 1; border-radius: 999px; }
