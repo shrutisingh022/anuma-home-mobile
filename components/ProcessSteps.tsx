@@ -19,17 +19,25 @@ export default function ProcessSteps() {
   const [track, setTrack] = useState(0);
   const refs = useRef<(HTMLLIElement | null)[]>([]);
 
-  // the line fills exactly to the current step's dot
+  // the line follows the scroll continuously: it fills to wherever the middle of the screen is,
+  // between the first dot and the last
   useEffect(() => {
+    let raf = 0;
     const measure = () => {
-      const a = refs.current[0], b = refs.current[at], z = refs.current[STEPS.length - 1];
-      if (a && b) setFill(b.offsetTop - a.offsetTop);
-      if (a && z) setTrack(z.offsetTop - a.offsetTop);
+      raf = 0;
+      const a = refs.current[0], z = refs.current[STEPS.length - 1];
+      if (!a || !z) return;
+      const len = z.offsetTop - a.offsetTop;
+      const top = a.getBoundingClientRect().top + 34; // centre of the first dot
+      setTrack(len);
+      setFill(Math.max(0, Math.min(len, window.innerHeight / 2 - top)));
     };
+    const on = () => { if (!raf) raf = requestAnimationFrame(measure); };
     measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, [at]);
+    window.addEventListener("scroll", on, { passive: true });
+    window.addEventListener("resize", on);
+    return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); cancelAnimationFrame(raf); };
+  }, []);
 
   useEffect(() => {
     const els = refs.current.filter(Boolean) as HTMLLIElement[];
