@@ -1,17 +1,12 @@
-import { Mark, WhatsAppIcon } from "./Icons";
-import { WA_URL } from "@/lib/site";
+import { Mark } from "./Icons";
 
-/** Logo on the left, Start chat on the right. The button is the merchant admin panel's primary button. */
+/** As in the HTML: the logo, centred, on a frosted sticky bar. Start chat lives in the bottom dock. */
 export default function Header() {
   return (
     <header className="hdr">
       <div className="wrap bar">
         <a className="tile" href="#top" aria-label="Anuma home">
           <Mark />
-        </a>
-        <a className="btn-admin" href={WA_URL} target="_blank" rel="noopener">
-          <WhatsAppIcon />
-          Start chat
         </a>
       </div>
     </header>
