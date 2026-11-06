@@ -273,3 +273,18 @@ body { padding-bottom: env(safe-area-inset-bottom, 0px); }
 .sv-tile svg { width: 20px; height: 20px; }
 /* not for online sellers: bigger and bolder */
 .notfit { margin-top: 16px; padding: 20px 20px; border-radius: 20px; font-size: 17px; line-height: 25px; font-weight: 500; color: #fff; letter-spacing: -0.01em; }
+
+/* industries: one card, a 2-column grid of tiles split by hairlines */
+.ind-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 16px; list-style: none; padding: 0;
+  border-radius: 20px; background: #fff; overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(17, 17, 17, 0.08), 0 1px 2px rgba(17, 17, 17, 0.04);
+}
+.ind-grid li {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px 14px 16px 16px; min-height: 104px;
+  border-top: 1px solid #efefed;
+}
+.ind-grid li:nth-child(-n + 2) { border-top: 0; }
+.ind-grid li:nth-child(odd) { border-right: 1px solid #efefed; }
+.ind-ic { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: #f4f4f2; color: var(--ink); }
+.ind-n { font-size: 14.5px; line-height: 19px; font-weight: 500; color: var(--ink); letter-spacing: -0.005em; }
