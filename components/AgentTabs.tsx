@@ -1,114 +1,111 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
+import { CircleCheck } from "lucide-react";
+import { AgentScreen, STEPS } from "./AgentScreens";
 import { Collect, Distribute, Identify, Inbox, Order, Quote, Remember, type LucideIcon } from "./PixelIcons";
 
-// The live agent card, carrying the v2 HTML's copy word for word: tag, name, "Stands in for", two points.
-type Agent = { name: string; tag: string; stands: string; points: string[]; Icon: LucideIcon; art: ReactNode };
+// The live agent card: tag, name, "Stands in for", two points, over an animated screen of what the agent does.
+// The screen plays its steps; when it finishes, the next tab opens on its own. Tapping a tab stops the autoplay.
+type Agent = { name: string; tag: string; stands: string; points: string[]; Icon: LucideIcon };
 
 const AGENTS: Agent[] = [
   {
     name: "Inbox", tag: "WhatsApp · email · calls · stalls", Icon: Inbox,
     stands: "the five phones and inboxes your team checks",
     points: ["WhatsApp, email and calls in one shared inbox", "Assign a chat, hand it over, never lose one"],
-    art: (
-      <div className="w-stack">
-        <span className="wg"><i className="cdot" style={{ background: "#25a244" }} /><b>Kapoor Decor</b> same as last time, 2 rolls</span>
-        <span className="wg"><i className="cdot" style={{ background: "#6a88e2" }} /><b>Raj Electricals</b> RFQ_nov.xlsx</span>
-        <span className="wg"><i className="cdot" style={{ background: "#f2b53a" }} /><b>Patel Textiles</b> card from stall B-14</span>
-      </div>
-    ),
   },
   {
     name: "Identify", tag: "Product photos", Icon: Identify,
     stands: "searching the catalogue by hand",
     points: ["Matches a photo or a description to your code", "Asks your team when it isn't sure"],
-    art: (
-      <div className="w-id">
-        <span className="w-sw" />
-        <div className="wg col" style={{ maxWidth: 170 }}>
-          <b>Zyra 14 · Ivory</b>
-          <span className="w-bar"><i style={{ width: "98%" }} /></span>
-          <small>98% match · NH 3867</small>
-        </div>
-      </div>
-    ),
   },
   {
     name: "Quote", tag: "RFQs · email · Excel", Icon: Quote,
     stands: "a day of lookups in old quotes",
     points: ["Works out the BOM and finds each line in your old quotes", "Prices it on today's rates"],
-    art: (
-      <div className="wg col">
-        <small>Proposal · RFQ-1042 v2</small>
-        <b className="big">₹4,12,560</b>
-        <span className="w-row"><span>Copper rate</span><em className="up">up 4.1%</em></span>
-        <span className="w-row"><span>1 line</span><em className="wt">to your team</em></span>
-      </div>
-    ),
   },
   {
     name: "Order", tag: "Orders", Icon: Order,
     stands: "typing orders into Tally",
     points: ["Every message becomes a draft order", "Saved to your ERP once your team says yes"],
-    art: (
-      <div className="wg col">
-        <span className="w-row"><b>SO-1042 · Shah Furnishings</b></span>
-        <span className="w-row"><span>2 rolls · Zyra 14</span><span>₹48,600</span></span>
-        <span className="w-row"><span className="w-yes">Approved</span><span className="w-sync">Synced to Tally</span></span>
-      </div>
-    ),
   },
   {
     name: "Distribute", tag: "Distributors · reps", Icon: Distribute,
     stands: "forwarding the stock PDF",
     points: ["Sends today's stock to every distributor", "Their orders come back as drafts"],
-    art: (
-      <div className="w-stack">
-        <span className="wg"><b>Daily stock · 9:00</b> Zyra 14 Ivory, 340 m</span>
-        <span className="wg"><b className="big">11</b> orders back today</span>
-      </div>
-    ),
   },
   {
     name: "Collect", tag: "Invoices · payments", Icon: Collect,
     stands: "chasing payments on the phone",
     points: ["Sends a polite reminder on time", "Matches each payment to its invoice"],
-    art: (
-      <div className="w-stack">
-        <span className="wg"><b>Reminder sent</b> INV-2231 · due today</span>
-        <span className="wg"><b>₹48,600 received</b> matched to INV-2231</span>
-      </div>
-    ),
   },
   {
     name: "Remember", tag: "Business memory", Icon: Remember,
     stands: "the rates nobody wrote down",
     points: ["Every customer's rate, usual order and habits", "Every other agent works from it"],
-    art: (
-      <div className="wg col">
-        <b>Shree Ganesh Furnishings</b>
-        <span className="w-row"><span>Band A · 10% off</span><em>price list</em></span>
-        <span className="w-row"><span>6 rolls every 2 days</span><em>orders</em></span>
-        <span className="w-row"><span>Wants swatches first</span><em>chats</em></span>
-      </div>
-    ),
   },
 ];
 
+const STEP_MS = 1000;
+const HOLD_MS = 2600;
+
 export default function AgentTabs() {
   const [i, setI] = useState(0);
+  const [step, setStep] = useState(0);
+  const [auto, setAuto] = useState(true);
+  const [seen, setSeen] = useState(false);
   const rowRef = useRef<HTMLDivElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
   const a = AGENTS[i];
+  const total = STEPS[a.name];
 
-  const pick = (n: number, btn: HTMLButtonElement) => {
-    setI(n);
+  // start only once the card is on screen; reduced motion shows each screen's end state, no autoplay
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setAuto(false);
+      setStep(99);
+      return;
+    }
+    const el = wrapRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver((es) => setSeen(es[0].isIntersecting), { threshold: 0.35 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // play the steps, then move to the next agent
+  useEffect(() => {
+    if (!seen || step >= 99) return;
+    if (step < total) {
+      const t = setTimeout(() => setStep((v) => v + 1), step === 0 ? 400 : STEP_MS);
+      return () => clearTimeout(t);
+    }
+    if (!auto) return;
+    const t = setTimeout(() => go((i + 1) % AGENTS.length), HOLD_MS);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seen, step, total, auto, i]);
+
+  const centre = (n: number) => {
     const c = rowRef.current;
-    if (c) c.scrollTo({ left: Math.max(0, btn.offsetLeft - (c.clientWidth - btn.offsetWidth) / 2), behavior: "smooth" });
+    const btn = c?.children[n] as HTMLElement | undefined;
+    if (c && btn) c.scrollTo({ left: Math.max(0, btn.offsetLeft - (c.clientWidth - btn.offsetWidth) / 2), behavior: "smooth" });
+  };
+  const go = (n: number) => {
+    setI(n);
+    setStep(0);
+    centre(n);
+  };
+  const pick = (n: number) => {
+    setAuto(false);
+    go(n);
   };
 
+  const dur = total * STEP_MS + 400 + HOLD_MS;
+
   return (
-    <>
+    <div ref={wrapRef}>
       <div className="at-tabs" role="tablist" aria-label="Agents" ref={rowRef}>
         {AGENTS.map((ag, n) => (
           <button
@@ -119,10 +116,11 @@ export default function AgentTabs() {
             aria-selected={n === i}
             aria-controls="agent-panel"
             className="at-tab"
-            onClick={(e) => pick(n, e.currentTarget)}
+            onClick={() => pick(n)}
           >
             <span className="at-ico"><ag.Icon aria-hidden /></span>
             {ag.name}
+            {n === i && auto && seen && <span className="at-prog" key={`${i}`} style={{ animationDuration: `${dur}ms` }} aria-hidden />}
           </button>
         ))}
       </div>
@@ -130,16 +128,16 @@ export default function AgentTabs() {
         <div className="at-frame">
           <span className="at-frame-bg" aria-hidden="true" />
           <div className="at-glass">
-            <div className="at-screen stage">{a.art}</div>
+            <div className="at-screen stage"><AgentScreen name={a.name} step={step} /></div>
           </div>
         </div>
         <span className="chip at-tag">{a.tag}</span>
         <h3 className="at-name">{a.name}</h3>
         <p className="at-hit">Stands in for <b>{a.stands}</b></p>
-        <ul className="ticks">
-          {a.points.map((p) => <li key={p}>{p}</li>)}
+        <ul className="ticks ticks-ic">
+          {a.points.map((p) => <li key={p}><CircleCheck aria-hidden size={18} strokeWidth={2} />{p}</li>)}
         </ul>
       </article>
-    </>
+    </div>
   );
 }

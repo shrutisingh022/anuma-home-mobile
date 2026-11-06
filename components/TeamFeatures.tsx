@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import AppPhone from "./AppPhone";
+import { CircleCheck } from "lucide-react";
 
 // The v2 HTML's four features, word for word, in the live media-card shape: dotted stage on top, copy below.
 function Seg<T extends string>({ opts, value, onChange, label }: { opts: [T, string][]; value: T; onChange: (v: T) => void; label: string }) {
@@ -70,10 +71,10 @@ export default function TeamFeatures() {
           <Label dot="#f2b53a">Mobile app</Label>
           <h3 className="t-h3">Approve from your phone.</h3>
           <p className="t-lede">On iOS and Android.</p>
-          <ul className="ticks">
-            <li>Approve orders and quotes in one tap</li>
-            <li>Reps place orders from the market</li>
-            <li>Every customer&apos;s history in your pocket</li>
+          <ul className="ticks ticks-ic">
+            <li><CircleCheck aria-hidden size={18} strokeWidth={2} />Approve orders and quotes in one tap</li>
+            <li><CircleCheck aria-hidden size={18} strokeWidth={2} />Reps place orders from the market</li>
+            <li><CircleCheck aria-hidden size={18} strokeWidth={2} />Every customer&apos;s history in your pocket</li>
           </ul>
           <div className="stores">
             {/* TODO: real store links once the app is live */}
