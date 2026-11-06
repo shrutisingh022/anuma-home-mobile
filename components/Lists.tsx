@@ -2,23 +2,23 @@
 
 import { useState } from "react";
 import {
-  Boxes, ChevronDown, Factory, Hammer, Layers, Package, PencilRuler, Ruler, Shapes, Smartphone, Truck, Zap, type LucideIcon,
-} from "./PixelIcons";
+  ChevronDown, Cog, Droplets, Factory, FlaskConical, Gift, Hammer, Package, PlugZap, Ship, Shirt, Smartphone, Wrench, type LucideIcon,
+} from "lucide-react";
 
 // Who it's for, in the live list-card shape (icon tile, name, one line). Six show; the rest open in place.
 const INDUSTRIES: [LucideIcon, string, string][] = [
-  [Layers, "Fabric and textiles", "Swatch photos, shades, rolls and metres"],
+  [Shirt, "Fabric and textiles", "Swatch photos, shades, rolls and metres"],
   [Smartphone, "Consumer electronics", "Daily stock to every distributor"],
-  [Zap, "Electricals", "Thousands of SKUs, RFQs of 900 lines"],
-  [Factory, "Pumps", "Specs and drawings in, custom quotes out"],
+  [PlugZap, "Electricals", "Thousands of SKUs, RFQs of 900 lines"],
+  [Droplets, "Pumps", "Specs and drawings in, custom quotes out"],
   [Hammer, "Die casting", "Part drawings, tooling and repeat orders"],
-  [Ruler, "Pipes and fittings", "Sizes, grades and project tenders"],
-  [PencilRuler, "Gears and machining", "Drawings in, quotes out, fast"],
-  [Boxes, "Steel and metals", "Rates that move every day"],
-  [Shapes, "Pharma and chemicals", "Grades, batches and repeat orders"],
-  [Truck, "Export and custom goods", "A new product for every enquiry"],
-  [Package, "Handcrafted goods", "Bulk orders for corporates and stores"],
-  [Boxes, "Packaging", "Sizes, prints and reorders"],
+  [Wrench, "Pipes and fittings", "Sizes, grades and project tenders"],
+  [Cog, "Gears and machining", "Drawings in, quotes out, fast"],
+  [Factory, "Steel and metals", "Rates that move every day"],
+  [FlaskConical, "Pharma and chemicals", "Grades, batches and repeat orders"],
+  [Ship, "Export and custom goods", "A new product for every enquiry"],
+  [Gift, "Handcrafted goods", "Bulk orders for corporates and stores"],
+  [Package, "Packaging", "Sizes, prints and reorders"],
 ];
 
 export function Industries() {
@@ -29,14 +29,14 @@ export function Industries() {
       <div id="industries">
         {shown.map(([I, b, s]) => (
           <div className="sv-row" key={b}>
-            <span className="sv-tile"><I aria-hidden /></span>
+            <span className="sv-tile"><I aria-hidden strokeWidth={1.75} /></span>
             <span><b>{b}</b><span>{s}</span></span>
           </div>
         ))}
       </div>
       <button type="button" className="sv-more" aria-expanded={all} aria-controls="industries" onClick={() => setAll((v) => !v)}>
         {all ? "Show fewer" : `Show all ${INDUSTRIES.length} industries`}
-        <ChevronDown aria-hidden />
+        <ChevronDown aria-hidden size={16} />
       </button>
     </div>
   );

@@ -257,3 +257,19 @@ body { padding-bottom: env(safe-area-inset-bottom, 0px); }
 .btn-start svg { width: 18px; height: 18px; fill: currentColor; flex: none; }
 .hero-ctas .btn-start { flex: none; width: auto; }
 .btn-start { gap: 8px; padding: 0 20px; }
+
+/* ---------- 6 Nov, pass 8: who it's for ---------- */
+/* "You sell to": the label on its own line, then soft filled pills with a Lucide icon each */
+.sell { display: block; margin-top: 24px; }
+.sell-k { display: block; font-size: 11.5px; line-height: 16px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #71717a; }
+.sell-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.sell-pill {
+  display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px 0 12px; border-radius: 999px;
+  background: #fff; color: var(--ink); font-size: 14px; font-weight: 500;
+  box-shadow: 0 0 0 1px rgba(17, 17, 17, 0.08), 0 1px 2px rgba(17, 17, 17, 0.06);
+}
+.sell-pill svg { color: #71717a; flex: none; }
+/* industries: Lucide icons in the tiles */
+.sv-tile svg { width: 20px; height: 20px; }
+/* not for online sellers: bigger and bolder */
+.notfit { margin-top: 16px; padding: 20px 20px; border-radius: 20px; font-size: 17px; line-height: 25px; font-weight: 500; color: #fff; letter-spacing: -0.01em; }

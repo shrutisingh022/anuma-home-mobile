@@ -8,6 +8,7 @@ import Reveal from "@/components/Reveal";
 import { FaqList, Industries } from "@/components/Lists";
 import { LiquidButton, LiquidDefs, Mark, WhatsAppIcon } from "@/components/Icons";
 import { CircleCheck, Lock, Server, Undo2 } from "@/components/PixelIcons";
+import { Globe, HardHat, ShoppingBag, Store, Truck } from "lucide-react";
 import { WA_URL } from "@/lib/site";
 
 /*
@@ -24,6 +25,8 @@ const ERPS: [string, string][] = [
   ["Dynamics 365", "/erp/dynamics.svg"],
   ["ERPNext", "/erp/erpnext.svg"],
 ];
+
+const SELL_TO = [[Store, "Dealers"], [Truck, "Distributors"], [ShoppingBag, "Retailers"], [HardHat, "Project buyers"], [Globe, "Exporters"]] as const;
 
 const STEPS = [
   { h: "Look", p: "We go through a week of your real orders, quotes and messages. We find where your team's time goes.", you: "You share a week of work", we: "You see where time goes" },
@@ -70,10 +73,12 @@ export default function Home() {
             <p className="t-lede">Orders come in on WhatsApp, email and calls. Your team types them in.</p>
           </div>
           <div className="sell">
-            <span className="t-small">You sell to</span>
-            {["Dealers", "Distributors", "Retailers", "Project buyers", "Exporters"].map((s) => (
-              <span className="chip" key={s}>{s}</span>
-            ))}
+            <span className="sell-k">You sell to</span>
+            <div className="sell-pills">
+              {SELL_TO.map(([I, s]) => (
+                <span className="sell-pill" key={s}><I aria-hidden size={15} strokeWidth={1.75} />{s}</span>
+              ))}
+            </div>
           </div>
           <Industries />
           <p className="notfit">Not for online sellers or marketplace stores yet. Anuma is built for orders between businesses.</p>
