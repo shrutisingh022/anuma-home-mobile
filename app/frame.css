@@ -161,7 +161,7 @@ details.faq[open]::details-content { height: auto; }
 /* backgrounds: a plain dot grid instead of the Morse dashes */
 .stage {
   background-color: var(--stage);
-  background-image: radial-gradient(circle, rgba(17, 17, 17, 0.065) 0.9px, transparent 1.3px);
+  background-image: radial-gradient(circle, rgba(17, 17, 17, 0.035) 0.9px, transparent 1.3px);
   background-size: 14px 14px; background-position: 7px 7px;
 }
 
