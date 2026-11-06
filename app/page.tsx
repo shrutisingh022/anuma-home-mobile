@@ -8,8 +8,7 @@ import Reveal from "@/components/Reveal";
 import ProcessSteps from "@/components/ProcessSteps";
 import { FaqList, Industries } from "@/components/Lists";
 import { LiquidButton, LiquidDefs, Mark, WhatsAppIcon } from "@/components/Icons";
-import { CircleCheck, Lock, Server, Undo2 } from "@/components/PixelIcons";
-import { Globe, HardHat, ShoppingBag, Store, Truck } from "lucide-react";
+import { Cloud, Globe, HardHat, Lock, ShieldCheck, ShoppingBag, Store, Truck, Undo2 } from "lucide-react";
 import { WA_URL } from "@/lib/site";
 
 /*
@@ -31,10 +30,10 @@ const SELL_TO = [[Store, "Dealers"], [Truck, "Distributors"], [ShoppingBag, "Ret
 
 
 const DATA = [
-  { I: CircleCheck, h: "Nothing goes out without a yes", p: "Every order and quote waits for your team to approve it." },
+  { I: ShieldCheck, h: "Nothing goes out without a yes", p: "Every order and quote waits for your team to approve it." },
   { I: Lock, h: "Your data is only yours", p: "Your BOMs, rates and customers are never shared with anyone." },
   { I: Undo2, h: "Easy to stop", p: "Your orders are saved in your own ERP. If you stop Anuma, your work carries on as before." },
-  { I: Server, h: "In your own cloud", p: "Run it in your own AWS account, with Claude on Amazon Bedrock. Your data stays in India." },
+  { I: Cloud, h: "In your own cloud", p: "Run it in your own AWS account, with Claude on Amazon Bedrock. Your data stays in India." },
 ];
 
 export default function Home() {
@@ -149,11 +148,11 @@ export default function Home() {
             <span className="t-eyebrow">Your data</span>
             <h2 className="t-h2">Your prices stay yours.</h2>
           </div>
-          <div className="sv-list data-list">
+          <div className="inds data-cards">
             {DATA.map(({ I, h, p }) => (
-              <div className="sv-row" key={h}>
-                <span className="sv-tile"><I aria-hidden /></span>
-                <span className="sv-txt"><b>{h}</b><span>{p}</span></span>
+              <div className="ind" key={h}>
+                <span className="ind-ic"><I aria-hidden size={17} strokeWidth={1.8} /></span>
+                <span className="ind-t"><b>{h}</b><p>{p}</p></span>
               </div>
             ))}
           </div>

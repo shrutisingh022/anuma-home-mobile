@@ -329,3 +329,9 @@
 /* scaled, not resized: smooth on every phone */
 .pf-track i { height: 100%; max-height: none; transform: scaleY(0); transform-origin: 50% 0; transition: none; will-change: transform;
   background: #1f1f1f; }
+
+/* your data: the industries' cards, black glass Lucide icons */
+.data-cards { margin-top: 32px; }
+.data-cards .ind { align-items: flex-start; padding: 16px; }
+.data-cards .ind-t b { font-size: 16px; }
+.data-cards .ind-t p { margin-top: 4px; font-size: 14px; line-height: 21px; color: #52525b; }
