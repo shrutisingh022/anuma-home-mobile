@@ -31,8 +31,6 @@ const ITEMS: T[] = [
     name: "Dhaval Budhdeo", role: "[Designation] · Stuffcool",
     face: { src: "/people/dhaval-budhdeo.jpg", focus: "52% 36%", zoom: 1.45 },
   },
-  { still: "/clients/axis.jpg", pos: "40% 50%", agent: "Quote agent", dur: "0:45", name: "[Name]", role: "[Designation] · Axis Electricals" },
-  { still: "/clients/malmo.jpg", pos: "45% 50%", agent: "Custom agent", dur: "0:40", name: "[Name]", role: "[Designation] · Malmo" },
 ];
 
 function initials(name: string) {
