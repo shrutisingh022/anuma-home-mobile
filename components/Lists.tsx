@@ -58,8 +58,8 @@ const FAQ: [string, string][] = [
 ];
 
 export function FaqList() {
-  // One open at a time, the first to start. Height animates with a 0fr → 1fr grid row, which is smooth in every browser.
-  const [open, setOpen] = useState<number | null>(0);
+  // One open at a time, none to start. Height animates with a 0fr → 1fr grid row, which is smooth in every browser.
+  const [open, setOpen] = useState<number | null>(null);
   return (
     <div className="faq-list">
       {FAQ.map(([q, a], i) => {
