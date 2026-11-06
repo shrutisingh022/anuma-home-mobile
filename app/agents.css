@@ -270,3 +270,10 @@
 .wx-meter { display: block; height: 5px; margin-top: 6px; border-radius: 5px; background: #f4f4f5; overflow: hidden; }
 .wx-meter i { display: block; height: 100%; border-radius: 5px; background: #1a9948; transition: width 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); }
 @media (prefers-reduced-motion: reduce) { .wx-row, .wx-ic, .wx-meter i { transition: none; } .wx-photo.scan i { animation: none; } .rb-v { animation: none; } }
+
+/* ---------- one dot grid for every stage on the page: light, soft grey, but visible ---------- */
+.stage {
+  background-color: #f7f7f5;
+  background-image: radial-gradient(circle, #d9d9d4 1.1px, transparent 1.5px);
+  background-size: 12px 12px; background-position: 6px 6px;
+}
