@@ -1,0 +1,102 @@
+/* ============================================================================
+   The Anuma app in an iPhone frame. Screen styles are the App Store screens'
+   (anuma-mobile-store/app-screens.html, which copies anuma-mobile src/global.css),
+   scoped under .ap-*. The screen is 440 x 956 and scaled to the phone's glass.
+   ========================================================================== */
+.ap-device {
+  --ap-w: 236px;                       /* glass width on the page */
+  --ap-k: calc(236 / 440);             /* scale of the 440px app screen */
+  position: relative; width: calc(var(--ap-w) + 22px); padding: 11px; border-radius: 50px;
+  background: linear-gradient(145deg, #3a3936 0%, #1b1b1a 45%, #2b2a28 100%);
+  box-shadow:
+    inset 0 0 0 1.5px #d9d3c7,          /* titanium edge, as in the store shots */
+    inset 0 0 0 3px #8f8a80,
+    inset 0 0 0 5px #141414,
+    0 40px 60px -30px rgba(17, 17, 17, 0.55),
+    0 12px 24px -16px rgba(17, 17, 17, 0.35);
+}
+.ap-btn { position: absolute; width: 3px; border-radius: 2px; background: linear-gradient(90deg, #8f8a80, #d9d3c7); }
+.ap-btn-a { left: -2px; top: 96px; height: 22px; }
+.ap-btn-b { left: -2px; top: 134px; height: 44px; }
+.ap-btn-c { left: -2px; top: 186px; height: 44px; }
+.ap-btn-d { right: -2px; top: 150px; height: 66px; }
+.ap-glass { width: var(--ap-w); height: calc(956px * var(--ap-k)); border-radius: 40px; overflow: hidden; background: #fff; }
+.ap-fit { width: 440px; height: 956px; transform: scale(var(--ap-k)); transform-origin: 0 0; }
+
+/* screen */
+.ap-screen {
+  --fg: #0a0a0a; --muted-bg: #f5f5f5; --muted-fg: #737373; --border: #e5e5e5; --alert: #e03a3a;
+  --desk: #9a6208; --desk-soft: #fefce8; --success: #13a269; --success-soft: #eefbe8;
+  width: 440px; height: 956px; position: relative; overflow: hidden; background: #fff; color: var(--fg);
+  font: 400 13px/1.35 var(--font-inter, Inter), var(--font-sans); text-align: left; -webkit-font-smoothing: antialiased;
+}
+.ap-island { position: absolute; top: 12px; left: 50%; width: 124px; height: 36px; margin-left: -62px; border-radius: 20px; background: #000; z-index: 6; }
+.ap-sb { height: 62px; display: flex; align-items: center; justify-content: space-between; padding: 8px 32px 0 50px; font-weight: 600; font-size: 17px; letter-spacing: -0.2px; position: relative; z-index: 5; }
+.ap-sb .r { display: flex; gap: 6px; align-items: center; }
+.ap-ic { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; display: block; }
+.ap-muted { color: var(--muted-fg); }
+
+.ap-topbar { height: 48px; display: flex; align-items: center; padding: 0 20px; }
+.ap-topbar .t { font-size: 20px; font-weight: 600; letter-spacing: -0.5px; flex: 1; }
+.ap-me { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; background: #ece8fb; color: #4a3aa8; font-size: 12px; font-weight: 600; }
+.ap-pad { display: flex; padding: 4px 20px 0; }
+.ap-pad2 { padding: 12px 20px 4px; }
+.ap-search { height: 40px; border: 1px solid var(--border); border-radius: 10px; display: flex; align-items: center; gap: 8px; padding: 0 12px; font-size: 14px; color: #a3a3a3; flex: 1; }
+.ap-search .ap-ic { color: var(--muted-fg); }
+.ap-seg { display: flex; background: var(--muted-bg); border-radius: 10px; padding: 3px; }
+.ap-seg span { flex: 1; text-align: center; font-size: 12.5px; font-weight: 500; color: var(--muted-fg); padding: 6px 8px; border-radius: 8px; }
+.ap-seg span.on { background: #fff; color: var(--fg); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08); }
+
+.ap-list { border-top: 1px solid var(--border); margin-top: 4px; }
+.ap-row { padding: 12px 20px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 4px; background: #fff; }
+.ap-row.esc { background: #fefdf1; }
+.ap-row.closed { background: #f9f9f9; }
+.ap-row .l1 { height: 24px; display: flex; align-items: center; gap: 8px; }
+.ap-row .l1 .sp { flex: 1; }
+.ap-row .l2 { height: 20px; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ap-row .l2 b { font-weight: 600; }
+.ap-row .l3 { height: 26px; display: flex; align-items: center; gap: 8px; }
+.ap-row .l3 .msg { flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted-fg); }
+.ap-row .l3 .msg span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.ap-row .l3 .msg.unread span { color: var(--fg); }
+
+.ap-ctag { height: 24px; display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 0 10px; font-size: 12px; font-weight: 500; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+.ap-ctag i { width: 6px; height: 6px; border-radius: 50%; display: block; }
+.ap-ctag.open { background: var(--success-soft); color: var(--success); } .ap-ctag.open i { background: var(--success); }
+.ap-ctag.esc { background: var(--desk-soft); color: var(--desk); } .ap-ctag.esc i { background: #f4b23e; }
+.ap-ctag.closed { background: var(--muted-bg); color: var(--muted-fg); } .ap-ctag.closed i { background: #a3a3a3; }
+.ap-timer { display: flex; align-items: center; gap: 4px; font-size: 11px; font-variant-numeric: tabular-nums; }
+.ap-timer .ap-ic { width: 12px; height: 12px; }
+.ap-timer.win { color: var(--desk); } .ap-timer.wait { color: var(--muted-fg); }
+.ap-udot { width: 8px; height: 8px; border-radius: 50%; background: var(--alert); flex-shrink: 0; }
+.ap-time { font-size: 11px; color: var(--muted-fg); font-variant-numeric: tabular-nums; }
+.ap-typing { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--success); }
+.ap-typing i { width: 3px; height: 3px; border-radius: 50%; background: var(--success); display: inline-block; margin-right: 2px; animation: ap-type 1.2s infinite; }
+.ap-typing i:nth-child(2) { animation-delay: 0.2s; } .ap-typing i:nth-child(3) { animation-delay: 0.4s; }
+@keyframes ap-type { 0%, 60%, 100% { opacity: 0.3; } 30% { opacity: 1; } }
+.tick-read { color: #53bdeb; } .tick-grey { color: #8a8a8a; }
+
+/* faces: the Anuma disc, and a teammate's initials where the store shots had photos */
+.ap-disc { width: 24px; height: 24px; border-radius: 50%; background: #171717; display: inline-flex; align-items: center; justify-content: center; gap: 2px; flex-shrink: 0; }
+.ap-disc i { display: block; background: #fafafa; border-radius: 9px; height: 3.4px; }
+.ap-disc i:first-child { width: 3.4px; } .ap-disc i:last-child { width: 7.2px; }
+.ap-ring { border-radius: 50%; padding: 1.5px; border: 2px solid; display: inline-flex; background: #fff; flex-shrink: 0; }
+.ap-ring.ok { border-color: var(--success); } .ap-ring.warn { border-color: #f4b23e; }
+.ap-face { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 9px; font-weight: 600; color: #2a2a2a; }
+.ap-stack { display: flex; align-items: center; }
+.ap-stack .back { opacity: 0.9; }
+.ap-stack .front { margin-left: -8px; position: relative; z-index: 1; }
+
+.ap-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 130px; background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff 72%); z-index: 30; pointer-events: none; }
+.ap-tabbar {
+  position: absolute; left: 20px; right: 20px; bottom: 34px; height: 58px; border-radius: 999px; z-index: 40; display: flex; align-items: center; padding: 0 6px;
+  background: rgba(255, 255, 255, 0.74); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08), inset 0 0 0 1.5px rgba(255, 255, 255, 0.95), 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+.ap-tabbar .tb { flex: 1; height: 46px; display: flex; align-items: center; justify-content: center; color: #404040; }
+.ap-tabbar .tb.on { background: #1a1a1a; border-radius: 23px; color: #fafafa; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 0 12px rgba(255, 255, 255, 0.06); }
+.ap-tabbar .ap-ic { width: 22px; height: 22px; stroke-width: 1.8; }
+.ap-tabbar .w { position: relative; }
+.ap-badge { position: absolute; top: -8px; right: -12px; min-width: 18px; height: 18px; border-radius: 9px; background: var(--alert); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; padding: 0 4px; }
+.ap-home { position: absolute; bottom: 8px; left: 50%; width: 140px; height: 5px; margin-left: -70px; background: #0a0a0a; border-radius: 3px; z-index: 60; }
+@media (prefers-reduced-motion: reduce) { .ap-typing i { animation: none; } }

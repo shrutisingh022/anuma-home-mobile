@@ -137,3 +137,33 @@ details.faq[open]::details-content { height: auto; }
 
 /* client card: the agent label reads over any photo */
 .tm-chip.btn-glass { background: rgba(20, 19, 16, 0.38); border-color: rgba(255, 255, 255, 0.35); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+
+/* ===== 6 Nov feedback pass ===== */
+/* header: just the black Anuma logo, no tile; tighter gap to the headline */
+.hdr .bar { height: 56px; }
+.tile { width: auto; height: 44px; padding: 0 8px; background: none; box-shadow: none; color: var(--ink); border-radius: 8px; }
+.tile .mark { gap: 5px; }
+.tile .mark i { height: 10px; }
+.tile .mark i:first-child { width: 10px; }
+.tile .mark i:last-child { width: 28px; }
+.hero, .hero.wrap { padding-top: 28px; }
+.hero h1 { margin-top: 0; }
+
+/* agent tabs: start on the 16px margin, scroll inside the column */
+.at-tabs { margin: 22px 0 0; padding: 2px 0 6px; scroll-padding-inline: 0; }
+
+/* agent visual: breathing room around the blurred frame and inside it */
+.at-card { padding: 12px 12px 20px; }
+.at-card .at-frame { padding: 16px; border-radius: 16px; }
+.at-screen { padding: 18px 14px; }
+.at-tag, .at-name, .at-hit, .at-card .ticks { margin-left: 8px; margin-right: 8px; }
+
+/* backgrounds: a plain dot grid instead of the Morse dashes */
+.stage {
+  background-color: var(--stage);
+  background-image: radial-gradient(circle, rgba(17, 17, 17, 0.13) 1px, transparent 1.4px);
+  background-size: 14px 14px; background-position: 7px 7px;
+}
+
+/* team: the phone sits on the stage with room around it */
+.feat-stage.is-phone { padding: 28px 16px; }

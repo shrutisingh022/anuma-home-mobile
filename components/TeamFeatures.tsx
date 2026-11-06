@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import AppPhone from "./AppPhone";
 
 // The v2 HTML's four features, word for word, in the live media-card shape: dotted stage on top, copy below.
 function Seg<T extends string>({ opts, value, onChange, label }: { opts: [T, string][]; value: T; onChange: (v: T) => void; label: string }) {
@@ -55,7 +56,6 @@ function Label({ dot, children }: { dot: string; children: string }) {
 }
 
 export default function TeamFeatures() {
-  const [approved, setApproved] = useState(false);
   const [rule, setRule] = useState<keyof typeof RULES>("a");
   const [flow, setFlow] = useState<"on" | "off">("on");
   const [role, setRole] = useState<keyof typeof ROLES>("o");
@@ -63,27 +63,8 @@ export default function TeamFeatures() {
   return (
     <div className="feats">
       <article className="feat rv">
-        <div className="feat-stage stage">
-          <div className="mphone">
-            <div className="mnotch" />
-            <div className="mscr">
-              <small className="mlb">Needs your yes</small>
-              <div className="mcard">
-                <b>SO-1042 · Shah Furnishings</b>
-                <span>2 rolls · Zyra 14 · ₹48,600</span>
-                <div className="mbtns">
-                  <span className="mno">Edit</span>
-                  <button type="button" className={`myes${approved ? " done" : ""}`} onClick={() => setApproved(true)}>
-                    {approved ? "Approved ✓" : "Approve"}
-                  </button>
-                </div>
-              </div>
-              <div className="mcard dim">
-                <b>Proposal · Raj Electricals</b>
-                <span>4 lines · ₹4,12,560</span>
-              </div>
-            </div>
-          </div>
+        <div className="feat-stage stage is-phone">
+          <AppPhone />
         </div>
         <div className="feat-body">
           <Label dot="#f2b53a">Mobile app</Label>
