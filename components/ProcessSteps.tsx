@@ -15,25 +15,34 @@ const STEPS = [
 
 export default function ProcessSteps() {
   const [at, setAt] = useState(0);
-  const [fill, setFill] = useState(0);
   const [track, setTrack] = useState(0);
   const refs = useRef<(HTMLLIElement | null)[]>([]);
+  const fillRef = useRef<HTMLElement>(null);
 
-  // the line follows the scroll continuously: it fills to wherever the middle of the screen is,
-  // between the first dot and the last
+  // The line follows the scroll: it fills to wherever the middle of the screen is, between the first
+  // dot and the last. Written straight to the element (no re-render), as a GPU scale, and eased
+  // towards its target every frame so it glides rather than steps.
   useEffect(() => {
-    let raf = 0;
-    const measure = () => {
-      raf = 0;
+    const fillEl = fillRef.current;
+    if (!fillEl) return;
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let cur = 0, target = 0, len = 1, raf = 0;
+    const read = () => {
       const a = refs.current[0], z = refs.current[STEPS.length - 1];
       if (!a || !z) return;
-      const len = z.offsetTop - a.offsetTop;
-      const top = a.getBoundingClientRect().top + 34; // centre of the first dot
+      len = Math.max(1, z.offsetTop - a.offsetTop);
       setTrack(len);
-      setFill(Math.max(0, Math.min(len, window.innerHeight / 2 - top)));
+      const top = a.getBoundingClientRect().top + 34; // centre of the first dot
+      target = Math.max(0, Math.min(1, (window.innerHeight / 2 - top) / len));
     };
-    const on = () => { if (!raf) raf = requestAnimationFrame(measure); };
-    measure();
+    const tick = () => {
+      cur += (target - cur) * (still ? 1 : 0.14);
+      if (Math.abs(target - cur) < 0.0005) cur = target;
+      fillEl.style.transform = `scaleY(${cur})`;
+      raf = cur === target ? 0 : requestAnimationFrame(tick);
+    };
+    const on = () => { read(); if (!raf) raf = requestAnimationFrame(tick); };
+    on();
     window.addEventListener("scroll", on, { passive: true });
     window.addEventListener("resize", on);
     return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); cancelAnimationFrame(raf); };
@@ -54,8 +63,8 @@ export default function ProcessSteps() {
   }, []);
 
   return (
-    <div className="pf-wrap" style={{ ["--fill" as string]: `${fill}px`, ["--track" as string]: `${track}px` }}>
-    <span className="pf-track" aria-hidden="true"><i /></span>
+    <div className="pf-wrap" style={{ ["--track" as string]: `${track}px` }}>
+    <span className="pf-track" aria-hidden="true"><i ref={fillRef} /></span>
     <ol className="pf">
       {STEPS.map((s, n) => (
         <li key={s.h} ref={(el) => { refs.current[n] = el; }} className={`pf-step${n < at ? " done" : n === at ? " now" : ""}`}>

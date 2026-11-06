@@ -326,3 +326,6 @@
 .pf-give span:first-child svg { color: #71717a; }
 /* the line is scroll-linked now: no step jumps, just a soft taper at its leading end */
 .pf-track i { transition: height 0.12s linear; background: linear-gradient(180deg, #1f1f1f 0%, #1f1f1f calc(100% - 24px), rgba(31, 31, 31, 0.25) 100%); }
+/* scaled, not resized: smooth on every phone */
+.pf-track i { height: 100%; max-height: none; transform: scaleY(0); transform-origin: 50% 0; transition: none; will-change: transform;
+  background: #1f1f1f; }
