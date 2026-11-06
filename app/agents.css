@@ -358,3 +358,34 @@
 /* identify: the real fabric photo (the desktop site's kantha), not a drawn pattern */
 .wx-photo { width: 132px; height: 76px; background: url(/fabric/kantha.jpg) center 35% / cover, #efe4cf; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06); }
 .wx-photo::before { content: none; }
+
+/* ---------- final card, as the desktop draws it: the warm painted warehouse, dark type, no veil ---------- */
+.final { display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 0.98; min-height: 340px;
+  padding: 32px 24px; border-radius: 22px; color: var(--ink); text-align: center;
+  background: #f8d4b8 url(/cta-warm.jpg) center / cover no-repeat; outline: 1px solid rgba(17, 17, 17, 0.06); outline-offset: -1px; }
+.final::before, .final .fimg { display: none; }
+.final h2 { color: var(--ink); font-size: 30px; line-height: 34px; font-weight: 600; letter-spacing: -0.04em; text-shadow: 0 1px 18px rgba(255, 255, 255, 0.35); }
+.final > p { color: #3f3e3a; font-size: 16px; line-height: 24px; margin-top: 8px; }
+.final .ctas { justify-content: center; margin-top: 24px; }
+.final .btn-start { padding: 0 20px; }
+
+/* the DPIIT line in the desktop's viewfinder brackets */
+.dpiit {
+  --c: rgba(17, 17, 17, 0.32); --l: 6px; --t: 1px;
+  display: inline-block; margin-top: 18px; padding: 5px 10px;
+  font: 500 11px/16px ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: 0.09em; text-transform: uppercase; color: #3f3e3a;
+  background:
+    linear-gradient(var(--c), var(--c)) left top / var(--l) var(--t), linear-gradient(var(--c), var(--c)) left top / var(--t) var(--l),
+    linear-gradient(var(--c), var(--c)) right top / var(--l) var(--t), linear-gradient(var(--c), var(--c)) right top / var(--t) var(--l),
+    linear-gradient(var(--c), var(--c)) left bottom / var(--l) var(--t), linear-gradient(var(--c), var(--c)) left bottom / var(--t) var(--l),
+    linear-gradient(var(--c), var(--c)) right bottom / var(--l) var(--t), linear-gradient(var(--c), var(--c)) right bottom / var(--t) var(--l);
+  background-repeat: no-repeat;
+}
+
+/* footer, below the card: compact and quiet */
+.site-foot { padding: 22px 4px 8px; }
+.sf-top { display: flex; flex-direction: column; gap: 10px; }
+.site-foot .mark { color: var(--ink); }
+.site-foot nav { display: flex; flex-wrap: wrap; gap: 0 16px; }
+.site-foot nav a { display: inline-flex; align-items: center; min-height: 32px; font-size: 13.5px; font-weight: 500; color: #52525b; }
+.site-foot p { margin-top: 10px; font-size: 11.5px; line-height: 17px; color: #8a8a93; }

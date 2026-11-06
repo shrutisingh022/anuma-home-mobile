@@ -173,17 +173,19 @@ export default function Home() {
         {/* FINAL: as the HTML has it */}
         <section className="wrap end-wrap">
           <div className="final">
-            <div className="fimg" style={{ backgroundImage: "url(/final.jpg)" }} />
             <h2>Tell us how you work.</h2>
             <p>Send us a message. We&apos;ll show you where to start.</p>
             <div className="ctas">
-              <a className="btn-start is-light" href={WA_URL} target="_blank" rel="noopener">
+              <a className="btn-start" href={WA_URL} target="_blank" rel="noopener">
                 Start chat
                 <WhatsAppIcon />
               </a>
-              <a className="btn-line" href="#platform">See how it works</a>
             </div>
-            <div className="fcard-foot">
+            <span className="dpiit">DPIIT recognised startup</span>
+          </div>
+
+          <footer className="site-foot">
+            <div className="sf-top">
               <Mark />
               <nav>
                 <a href="https://anuma.co.in/blog">Blog</a>
@@ -192,9 +194,9 @@ export default function Home() {
                 <a href="https://anuma.co.in/terms">Terms</a>
                 <a href="https://anuma.co.in/model-training">Model Training</a>
               </nav>
-              <p>© 2026 Anuma Intelligence Private Limited</p>
             </div>
-          </div>
+            <p>© 2026 Anuma Intelligence Private Limited · DPIIT recognised startup, DIPP285119</p>
+          </footer>
         </section>
       </main>
 
