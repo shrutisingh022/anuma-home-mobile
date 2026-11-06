@@ -354,3 +354,7 @@
 .fcard-foot nav a { min-height: 34px; font-size: 13.5px; color: rgba(255, 255, 255, 0.86); }
 .fcard-foot p { grid-row: 1; grid-column: 2; justify-self: end; margin: 0; font-size: 11.5px; color: rgba(255, 255, 255, 0.6); }
 .final { padding-left: 16px; padding-right: 16px; }
+
+/* identify: the real fabric photo (the desktop site's kantha), not a drawn pattern */
+.wx-photo { width: 132px; height: 76px; background: url(/fabric/kantha.jpg) center 35% / cover, #efe4cf; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06); }
+.wx-photo::before { content: none; }
