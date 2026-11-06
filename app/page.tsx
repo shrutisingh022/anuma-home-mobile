@@ -7,7 +7,7 @@ import DockCta from "@/components/DockCta";
 import Reveal from "@/components/Reveal";
 import ProcessSteps from "@/components/ProcessSteps";
 import { FaqList, Industries } from "@/components/Lists";
-import { LiquidButton, LiquidDefs, Mark, WhatsAppIcon } from "@/components/Icons";
+import { LiquidDefs, Mark, WhatsAppIcon } from "@/components/Icons";
 import { Cloud, Globe, HardHat, Lock, ShieldCheck, ShoppingBag, Store, Truck, Undo2 } from "lucide-react";
 import { WA_URL } from "@/lib/site";
 
@@ -177,8 +177,11 @@ export default function Home() {
             <h2>Tell us how you work.</h2>
             <p>Send us a message. We&apos;ll show you where to start.</p>
             <div className="ctas">
-              <LiquidButton size="wide" />
-              <a className="btn gl" href="#platform">See how it works</a>
+              <a className="btn-start is-light" href={WA_URL} target="_blank" rel="noopener">
+                Start chat
+                <WhatsAppIcon />
+              </a>
+              <a className="btn-line" href="#platform">See how it works</a>
             </div>
             <div className="fcard-foot">
               <Mark />
