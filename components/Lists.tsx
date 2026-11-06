@@ -31,7 +31,7 @@ export function Industries() {
         {shown.map(([I, name, line]) => (
           <div className="ind" key={name}>
             <span className="ind-ic"><I aria-hidden size={17} strokeWidth={1.8} /></span>
-            <span className="ind-t"><b>{name}</b><p>{line}</p></span>
+            <span className="ind-t"><b>{name}</b><span className="ind-d">{line}</span></span>
           </div>
         ))}
       </div>

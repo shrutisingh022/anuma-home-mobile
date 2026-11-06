@@ -334,7 +334,7 @@
 .data-cards { margin-top: 32px; }
 .data-cards .ind { align-items: flex-start; padding: 16px; }
 .data-cards .ind-t b { font-size: 16px; }
-.data-cards .ind-t p { margin-top: 4px; font-size: 14px; line-height: 21px; color: #52525b; }
+.data-cards .ind-t .ind-d { margin-top: 4px; font-size: 14px; line-height: 21px; color: #52525b; }
 
 /* ---------- final card and footer: compact, clean, buttons side by side ---------- */
 .final { padding: 40px 20px 18px; border-radius: 24px; }

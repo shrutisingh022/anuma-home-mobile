@@ -152,7 +152,7 @@ export default function Home() {
             {DATA.map(({ I, h, p }) => (
               <div className="ind" key={h}>
                 <span className="ind-ic"><I aria-hidden size={17} strokeWidth={1.8} /></span>
-                <span className="ind-t"><b>{h}</b><p>{p}</p></span>
+                <span className="ind-t"><b>{h}</b><span className="ind-d">{p}</span></span>
               </div>
             ))}
           </div>
