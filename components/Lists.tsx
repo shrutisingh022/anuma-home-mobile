@@ -58,17 +58,26 @@ const FAQ: [string, string][] = [
 ];
 
 export function FaqList() {
+  // One open at a time, the first to start. Height animates with a 0fr → 1fr grid row, which is smooth in every browser.
+  const [open, setOpen] = useState<number | null>(0);
   return (
     <div className="faq-list">
-      {FAQ.map(([q, a], i) => (
-        <details key={q} className="faq" open={i === 0}>
-          <summary>
-            <span>{q}</span>
-            <ChevronDown className="faq-chevron" aria-hidden />
-          </summary>
-          <p>{a}</p>
-        </details>
-      ))}
+      {FAQ.map(([q, a], i) => {
+        const on = open === i;
+        return (
+          <div key={q} className={`faq${on ? " is-open" : ""}`}>
+            <h3>
+              <button type="button" aria-expanded={on} aria-controls={`faq-${i}`} id={`faq-q-${i}`} onClick={() => setOpen(on ? null : i)}>
+                <span>{q}</span>
+                <ChevronDown className="faq-chevron" aria-hidden />
+              </button>
+            </h3>
+            <div className="faq-a" id={`faq-${i}`} role="region" aria-labelledby={`faq-q-${i}`} inert={!on}>
+              <div><p>{a}</p></div>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

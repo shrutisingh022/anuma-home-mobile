@@ -5,6 +5,7 @@ import AgentTabs from "@/components/AgentTabs";
 import TeamFeatures from "@/components/TeamFeatures";
 import DockCta from "@/components/DockCta";
 import Reveal from "@/components/Reveal";
+import ProcessSteps from "@/components/ProcessSteps";
 import { FaqList, Industries } from "@/components/Lists";
 import { LiquidButton, LiquidDefs, Mark, WhatsAppIcon } from "@/components/Icons";
 import { CircleCheck, Lock, Server, Undo2 } from "@/components/PixelIcons";
@@ -28,12 +29,6 @@ const ERPS: [string, string][] = [
 
 const SELL_TO = [[Store, "Dealers"], [Truck, "Distributors"], [ShoppingBag, "Retailers"], [HardHat, "Project buyers"], [Globe, "Exporters"]] as const;
 
-const STEPS = [
-  { h: "Look", p: "We go through a week of your real orders, quotes and messages. We find where your team's time goes.", you: "You share a week of work", we: "You see where time goes" },
-  { h: "Plan", p: "We agree what Anuma does and what your team keeps doing.", you: "You approve the plan", we: "It's in writing" },
-  { h: "Set up", p: "We connect your WhatsApp, email and ERP, and load your catalogue and rates.", you: "You give us access", we: "You see your own orders, prepared" },
-  { h: "Run", p: "We run it with you every day and fix what goes wrong. It gets better each time your team corrects it.", you: "Your team approves orders", we: "We handle the rest" },
-];
 
 const DATA = [
   { I: CircleCheck, h: "Nothing goes out without a yes", p: "Every order and quote waits for your team to approve it." },
@@ -145,18 +140,7 @@ export default function Home() {
             <h2 className="t-h2">We set it up with you.</h2>
             <p className="t-lede">You approve before we build.</p>
           </div>
-          <ol className="case-flow">
-            {STEPS.map((s, i) => (
-              <li key={s.h} className="rv">
-                <span className={`case-orb${i === 0 ? " is-first" : ""}`}>{i + 1}</span>
-                <div className="card">
-                  <h3 className="t-h3">{s.h}</h3>
-                  <p>{s.p}</p>
-                  <div className="give"><span className="you">{s.you}</span><span>{s.we}</span></div>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <ProcessSteps />
         </section>
 
         {/* YOUR DATA */}
