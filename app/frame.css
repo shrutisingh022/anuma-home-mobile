@@ -256,3 +256,4 @@ body { padding-bottom: env(safe-area-inset-bottom, 0px); }
 }
 .btn-start svg { width: 18px; height: 18px; fill: currentColor; flex: none; }
 .hero-ctas .btn-start { flex: none; width: auto; }
+.btn-start { gap: 8px; padding: 0 20px; }

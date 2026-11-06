@@ -60,7 +60,6 @@ export default function Home() {
             </a>
           </div>
           <DashPreview />
-          <p className="dash-cap">Your admin panel, with sample data.</p>
         </section>
 
         {/* WHO IT'S FOR */}
