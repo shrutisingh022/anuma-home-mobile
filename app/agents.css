@@ -176,3 +176,7 @@
 .dp.is-r { color: #be123c; border-color: #f2b8c6; background: #fdf0f3; }
 .dp.is-k { color: #16161a; border-color: #cfcfd8; background: #f6f6f8; }
 .feat-foot .stores { justify-content: center; margin: 0; }
+/* calmer pill tones: green for the app, blue for rulebooks, teal for workflows */
+.dp.is-a { color: #0f7a4a; border-color: #bfe5cf; background: #effaf4; }
+.dp.is-v { color: #2f55c8; border-color: #cbd8fa; background: #f1f5ff; }
+.dp.is-r { color: #0e6e6e; border-color: #a7d7d4; background: #ecf8f7; }
