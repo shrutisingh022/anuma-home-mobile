@@ -169,8 +169,7 @@ details.faq[open]::details-content { height: auto; }
 .feat-stage.is-phone { padding: 28px 16px; }
 
 /* ---------- 6 Nov, pass 2: Shoji's type hierarchy, header button ---------- */
-/* header: logo left, Start chat right. No bottom dock any more. */
-body { padding-bottom: env(safe-area-inset-bottom, 0px); }
+/* header: logo left, Start chat right. The bottom dock stays too. */
 .hdr .bar { justify-content: space-between; }
 .tile { padding: 0; }
 

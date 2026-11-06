@@ -3,6 +3,7 @@ import DashPreview from "@/components/DashPreview";
 import ClientReel from "@/components/ClientReel";
 import AgentTabs from "@/components/AgentTabs";
 import TeamFeatures from "@/components/TeamFeatures";
+import DockCta from "@/components/DockCta";
 import Reveal from "@/components/Reveal";
 import { FaqList, Industries } from "@/components/Lists";
 import { LiquidButton, LiquidDefs, Mark } from "@/components/Icons";
@@ -199,6 +200,7 @@ export default function Home() {
         </section>
       </main>
 
+      <DockCta />
       <Reveal />
     </div>
   );
