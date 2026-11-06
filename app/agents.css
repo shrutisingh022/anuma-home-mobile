@@ -152,3 +152,9 @@
   .ag-in, .ag-swap > *, .ag-meter i { transition: none; }
   .ag-photo.scan i, .ag-dots i, .ag-live { animation: none; }
 }
+
+/* no blurred photo behind the screen: just the dotted stage, rounded */
+.at-frame-bg { display: none; }
+.at-card .at-frame { padding: 0; border-radius: 20px; }
+.at-glass { padding: 0; border: 0; border-radius: 20px; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none; }
+.at-screen { border-radius: 20px; padding: 18px 14px; box-shadow: inset 0 0 0 1px rgba(17, 17, 17, 0.05); }
