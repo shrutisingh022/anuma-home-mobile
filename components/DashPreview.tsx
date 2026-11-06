@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Mark } from "./Icons";
+import { Logo } from "./Icons";
 
 const NAV_ITEMS: { label: string; badge?: string; d: string }[] = [
   { label: "Home", d: "M3.5 9L10 3.5 16.5 9v7a1 1 0 01-1 1h-11a1 1 0 01-1-1z" },
@@ -47,8 +47,7 @@ export default function DashPreview() {
 
   return (
     <>
-      <div className="dashwrap">
-        <div className="dashfit" ref={fitRef}>
+      <div className="hero-shot" ref={fitRef}>
           <div className="dash" ref={dashRef} role="img" aria-label="The Anuma web app, with sample data">
             <div className="dw-bar">
               <i />
@@ -60,7 +59,7 @@ export default function DashPreview() {
               <aside className="dw-side">
                 <div className="dw-org">
                   <span className="dw-logo">
-                    <Mark />
+                    <Logo />
                   </span>
                   <b>Kapoor Textiles</b>
                 </div>
@@ -145,9 +144,8 @@ export default function DashPreview() {
               </div>
             </div>
           </div>
-        </div>
       </div>
-      <p className="dash-cap">The Anuma web app, with sample data.</p>
+      <p className="t-small shot-cap">The Anuma web app, with sample data.</p>
     </>
   );
 }

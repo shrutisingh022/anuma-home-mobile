@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Mark, WhatsAppIcon } from "./Icons";
-import { NAV, WA_URL } from "@/lib/site";
+import { LiquidButton, Logo } from "./Icons";
+import { Blocks, Factory, Layers, ListOrdered, MessageCircle, Users } from "./PixelIcons";
+import { NAV } from "@/lib/site";
+
+const ICONS = { clients: Users, agents: Layers, erp: Blocks, process: ListOrdered, who: Factory, faq: MessageCircle };
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -20,9 +23,7 @@ export default function Header() {
   useEffect(() => {
     document.body.classList.toggle("sheet-open", open);
     if (open) closeRef.current?.focus();
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
@@ -34,64 +35,58 @@ export default function Header() {
 
   return (
     <>
-      <header className={`hdr${scrolled ? " scrolled" : ""}`}>
-        <div className="wrap bar split-bar">
-          <a className="tile" href="#top" aria-label="Anuma home">
-            <Mark />
+      <header className={`nav${scrolled ? " is-scrolled" : ""}`}>
+        <div className="glass-bar">
+          <a className="brand" href="#top" aria-label="Anuma home">
+            <Logo />
           </a>
-          <div className="hdr-r">
-            <a className="btn pri hdr-cta" href={WA_URL} target="_blank" rel="noopener">
-              <WhatsAppIcon />
-              Start chat
-            </a>
+          <div className="nav-r">
+            <LiquidButton size="sm" />
             <button
               ref={menuRef}
               type="button"
-              className="menu-btn"
+              className="m-burger"
               aria-label="Open menu"
               aria-expanded={open}
               aria-controls="menu-sheet"
               onClick={() => setOpen(true)}
             >
               <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <path d="M3.5 7h13M3.5 13h13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                <path d="M3.5 7h13M3.5 13h13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
               </svg>
             </button>
           </div>
         </div>
       </header>
 
-      <div className={`sheet-scrim${open ? " open" : ""}`} onClick={close} aria-hidden="true" />
-      <div
-        id="menu-sheet"
-        className={`sheet${open ? " open" : ""}`}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Menu"
-        aria-hidden={!open}
-        inert={!open}
-      >
-        <div className="sheet-grab" />
-        <div className="sheet-h">
-          <b>On this page</b>
-          <button ref={closeRef} type="button" className="sheet-x" aria-label="Close menu" onClick={close}>
-            <svg viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <div className={`m-scrim${open ? " is-open" : ""}`} onClick={close} aria-hidden="true" />
+      <div id="menu-sheet" className={`m-sheet${open ? " is-open" : ""}`} role="dialog" aria-modal="true" aria-label="Menu" inert={!open}>
+        <div className="m-grab" />
+        <div className="m-sheet-top">
+          <span className="t-eyebrow">On this page</span>
+          <button ref={closeRef} type="button" className="m-x" aria-label="Close menu" onClick={close}>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
             </svg>
           </button>
         </div>
-        <nav>
-          {NAV.map((n) => (
-            <a key={n.href} href={n.href} onClick={() => setOpen(false)}>
-              {n.label}
-              <span>{n.hint}</span>
-            </a>
-          ))}
+        <nav className="m-list">
+          {NAV.map((n) => {
+            const I = ICONS[n.icon];
+            return (
+              <a key={n.href} href={n.href} className="m-sub" onClick={() => setOpen(false)}>
+                <span className="nav-tile">
+                  <I aria-hidden />
+                </span>
+                <span>
+                  <b>{n.label}</b>
+                  <small>{n.hint}</small>
+                </span>
+              </a>
+            );
+          })}
         </nav>
-        <a className="btn pri" href={WA_URL} target="_blank" rel="noopener">
-          <WhatsAppIcon />
-          Start chat
-        </a>
+        <LiquidButton tabIndex={open ? 0 : -1} />
       </div>
     </>
   );

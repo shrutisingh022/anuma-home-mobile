@@ -1,12 +1,13 @@
 export const WA_URL = "https://wa.me/919167000410";
 
 export const NAV = [
-  { href: "#clients", label: "Clients", hint: "Outcomes" },
-  { href: "#platform", label: "The agents", hint: "7 agents" },
-  { href: "#erp", label: "Your ERP", hint: "Tally, SAP, Zoho" },
-  { href: "#process", label: "How we start", hint: "4 steps" },
-  { href: "#questions", label: "Questions", hint: "FAQ" },
-];
+  { href: "#clients", label: "From our clients", hint: "Outcomes and videos", icon: "clients" },
+  { href: "#who", label: "Who it's for", hint: "Businesses that sell in bulk", icon: "who" },
+  { href: "#platform", label: "The agents", hint: "Start with one, add the rest", icon: "agents" },
+  { href: "#erp", label: "Your ERP", hint: "Tally, SAP, Zoho, Odoo and more", icon: "erp" },
+  { href: "#process", label: "How we start", hint: "Four steps, you approve first", icon: "process" },
+  { href: "#questions", label: "Questions", hint: "What owners ask us first", icon: "faq" },
+] as const;
 
 const ASK = "Explain what Anuma (anuma.co.in) does for Indian manufacturers and B2B sellers, in simple words.";
 export const ASK_AI = [
