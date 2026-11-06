@@ -167,3 +167,35 @@ details.faq[open]::details-content { height: auto; }
 
 /* team: the phone sits on the stage with room around it */
 .feat-stage.is-phone { padding: 28px 16px; }
+
+/* ---------- 6 Nov, pass 2: Shoji's type hierarchy, header button ---------- */
+/* header: logo left, Start chat right. No bottom dock any more. */
+body { padding-bottom: env(safe-area-inset-bottom, 0px); }
+.hdr .bar { justify-content: space-between; }
+.tile { padding: 0; }
+
+/* the merchant admin panel's primary button (.btn.btn-lg.btn-p): ink fill, 8px radius, 32px tall */
+.btn-admin {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid transparent;
+  background: #171717; color: #fafafa; font-size: 13px; line-height: 1; font-weight: 500; white-space: nowrap;
+  transition: background 0.15s, transform 0.15s;
+}
+.btn-admin svg { width: 14px; height: 14px; flex: none; }
+.btn-admin:hover { background: rgba(23, 23, 23, 0.8); }
+.btn-admin:active { transform: translateY(1px); }
+.btn-admin:focus-visible { outline: 0; border-color: #a1a1a1; box-shadow: 0 0 0 2px rgba(161, 161, 161, 0.3); }
+
+/* type, after shojimac.com: tight heavy headings, quiet grey body, small caps eyebrow */
+.hero h1 { font-size: 40px; line-height: 1.04; letter-spacing: -0.045em; font-weight: 600; }
+.hero .lede { font-size: 16px; line-height: 26px; color: #3f3f46; margin-top: 14px; max-width: 30ch; }
+.t-eyebrow { font-size: 11.5px; line-height: 16px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #71717a; }
+.t-h2 { font-size: 28px; line-height: 32px; letter-spacing: -0.035em; font-weight: 600; }
+.t-h3, .at-name { font-weight: 600; letter-spacing: -0.015em; }
+.t-lede { font-size: 16px; line-height: 26px; color: #3f3f46; }
+.t-small { color: #71717a; }
+.head { gap: 8px; }
+.head .t-h2 { max-width: 18ch; }
+.head .t-lede { max-width: 32ch; }
+.feat-body .t-lede { font-size: 15px; line-height: 24px; }
+.final h2 { font-weight: 600; letter-spacing: -0.04em; }

@@ -3,7 +3,6 @@ import DashPreview from "@/components/DashPreview";
 import ClientReel from "@/components/ClientReel";
 import AgentTabs from "@/components/AgentTabs";
 import TeamFeatures from "@/components/TeamFeatures";
-import DockCta from "@/components/DockCta";
 import Reveal from "@/components/Reveal";
 import { FaqList, Industries } from "@/components/Lists";
 import { LiquidButton, LiquidDefs, Mark } from "@/components/Icons";
@@ -51,7 +50,7 @@ export default function Home() {
           <h1>
             <em>AI agents</em> for Indian manufacturers.
           </h1>
-          <p className="lede">Every enquiry, from every channel, handled until it&apos;s paid. Inside the ERP you already run.</p>
+          <p className="lede">Every enquiry handled until it&apos;s paid. Inside your ERP.</p>
           <DashPreview />
         </section>
 
@@ -60,7 +59,7 @@ export default function Home() {
           <div className="head">
             <span className="t-eyebrow">Who it&apos;s for</span>
             <h2 className="t-h2">Made for businesses that sell in bulk.</h2>
-            <p className="t-lede">Your customers order on WhatsApp, email or calls. Your team types it all into the ERP. That&apos;s who Anuma is for.</p>
+            <p className="t-lede">Orders come in on WhatsApp, email and calls. Your team types them in.</p>
           </div>
           <div className="sell">
             <span className="t-small">You sell to</span>
@@ -76,7 +75,7 @@ export default function Home() {
         <section className="section wrap" id="clients">
           <div className="head">
             <span className="t-eyebrow">From our clients</span>
-            <h2 className="t-h2">Already running at businesses like yours.</h2>
+            <h2 className="t-h2">Running at businesses like yours.</h2>
           </div>
           <div className="stats rv">
             <div className="case-stat">
@@ -97,8 +96,8 @@ export default function Home() {
         <section className="section wrap" id="platform">
           <div className="head">
             <span className="t-eyebrow">The agents</span>
-            <h2 className="t-h2">The agents do the typing. Your team does the selling.</h2>
-            <p className="t-lede">Each agent takes one job your team does by hand today. Start with one, add the rest later.</p>
+            <h2 className="t-h2">The agents do the typing.</h2>
+            <p className="t-lede">Start with one. Add the rest later.</p>
           </div>
           <AgentTabs />
 
@@ -119,9 +118,9 @@ export default function Home() {
         {/* BUILT FOR YOUR WHOLE TEAM */}
         <section className="section wrap" id="team">
           <div className="head">
-            <span className="t-eyebrow">What Excel and WhatsApp can&apos;t do</span>
+            <span className="t-eyebrow">For your team</span>
             <h2 className="t-h2">Built for your whole team.</h2>
-            <p className="t-lede">Owners, sales, reps and accounts each get what they need. Tap the demos. The numbers are sample data.</p>
+            <p className="t-lede">Tap the demos. The numbers are sample data.</p>
           </div>
           <TeamFeatures />
         </section>
@@ -130,8 +129,8 @@ export default function Home() {
         <section className="section wrap" id="process">
           <div className="head">
             <span className="t-eyebrow">How we start</span>
-            <h2 className="t-h2">We set it up with you. You approve before we build.</h2>
-            <p className="t-lede">The same team stays with you, from the first chat to every day after.</p>
+            <h2 className="t-h2">We set it up with you.</h2>
+            <p className="t-lede">You approve before we build.</p>
           </div>
           <ol className="case-flow">
             {STEPS.map((s, i) => (
@@ -152,7 +151,6 @@ export default function Home() {
           <div className="head">
             <span className="t-eyebrow">Your data</span>
             <h2 className="t-h2">Your prices stay yours.</h2>
-            <p className="t-lede">Anuma sees your rates, customers and margins. It keeps them private, and does nothing without your team&apos;s okay.</p>
           </div>
           <div className="sv-list data-list">
             {DATA.map(({ I, h, p }) => (
@@ -168,7 +166,7 @@ export default function Home() {
         <section className="section wrap" id="questions">
           <div className="head">
             <span className="t-eyebrow">Questions</span>
-            <h2 className="t-h2">What owners ask us first.</h2>
+            <h2 className="t-h2">What owners ask first.</h2>
           </div>
           <FaqList />
           <p className="faq-else">
@@ -201,7 +199,6 @@ export default function Home() {
         </section>
       </main>
 
-      <DockCta />
       <Reveal />
     </div>
   );

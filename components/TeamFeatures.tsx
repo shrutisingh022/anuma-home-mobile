@@ -69,7 +69,7 @@ export default function TeamFeatures() {
         <div className="feat-body">
           <Label dot="#f2b53a">Mobile app</Label>
           <h3 className="t-h3">Approve from your phone.</h3>
-          <p className="t-lede">For owners, sales and reps, on iOS and Android.</p>
+          <p className="t-lede">On iOS and Android.</p>
           <ul className="ticks">
             <li>Approve orders and quotes in one tap</li>
             <li>Reps place orders from the market</li>
@@ -95,7 +95,7 @@ export default function TeamFeatures() {
         <div className="feat-body">
           <Label dot="#6a88e2">Rulebooks</Label>
           <h3 className="t-h3">Write your rules once.</h3>
-          <p className="t-lede">Rates, discounts, credit limits and who approves what. Every order follows them.</p>
+          <p className="t-lede">Every order follows them.</p>
           <Seg label="Buyer type" value={rule} onChange={setRule} opts={[["a", "Band A dealer"], ["b", "Band B"], ["n", "New buyer"]]} />
         </div>
       </article>
@@ -117,7 +117,7 @@ export default function TeamFeatures() {
         <div className="feat-body">
           <Label dot="#e0673f">Custom workflows</Label>
           <h3 className="t-h3">Your steps, in your order.</h3>
-          <p className="t-lede">Add the step only your business has. Anuma follows it every time.</p>
+          <p className="t-lede">Add the step only your business has.</p>
           <Seg label="Workflow" value={flow} onChange={setFlow} opts={[["on", "With your step"], ["off", "Standard"]]} />
         </div>
       </article>
@@ -136,8 +136,8 @@ export default function TeamFeatures() {
         </div>
         <div className="feat-body">
           <Label dot="#1f1f1f">Roles and approvals</Label>
-          <h3 className="t-h3">Everyone sees only what they should.</h3>
-          <p className="t-lede">Decide who sees, edits and approves. Every action is logged.</p>
+          <h3 className="t-h3">Each role sees only its part.</h3>
+          <p className="t-lede">Every action is logged.</p>
           <Seg label="Role" value={role} onChange={setRole} opts={[["o", "Owner"], ["s", "Sales"], ["r", "Rep"]]} />
         </div>
       </article>
