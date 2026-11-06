@@ -389,3 +389,4 @@
 .site-foot nav { display: flex; flex-wrap: wrap; gap: 0 16px; }
 .site-foot nav a { display: inline-flex; align-items: center; min-height: 32px; font-size: 13.5px; font-weight: 500; color: #52525b; }
 .site-foot p { margin-top: 10px; font-size: 11.5px; line-height: 17px; color: #8a8a93; }
+.feats { gap: 40px; }
