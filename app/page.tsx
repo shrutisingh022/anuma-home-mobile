@@ -190,10 +190,7 @@ export default function Home() {
             <h2>Tell us how you work.</h2>
             <p>Send us a message. We&apos;ll show you where to start.</p>
             <div className="ctas">
-              <a className="btn-start" href={WA_URL} target="_blank" rel="noopener">
-              Start chat
-              <WhatsAppIcon />
-            </a>
+              <LiquidButton size="wide" />
               <a className="btn gl" href="#platform">See how it works</a>
             </div>
             <div className="fcard-foot">
