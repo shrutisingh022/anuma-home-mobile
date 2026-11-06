@@ -16,13 +16,15 @@ const STEPS = [
 export default function ProcessSteps() {
   const [at, setAt] = useState(0);
   const [fill, setFill] = useState(0);
+  const [track, setTrack] = useState(0);
   const refs = useRef<(HTMLLIElement | null)[]>([]);
 
   // the line fills exactly to the current step's dot
   useEffect(() => {
     const measure = () => {
-      const a = refs.current[0], b = refs.current[at];
+      const a = refs.current[0], b = refs.current[at], z = refs.current[STEPS.length - 1];
       if (a && b) setFill(b.offsetTop - a.offsetTop);
+      if (a && z) setTrack(z.offsetTop - a.offsetTop);
     };
     measure();
     window.addEventListener("resize", measure);
@@ -44,7 +46,7 @@ export default function ProcessSteps() {
   }, []);
 
   return (
-    <div className="pf-wrap" style={{ ["--fill" as string]: `${fill}px` }}>
+    <div className="pf-wrap" style={{ ["--fill" as string]: `${fill}px`, ["--track" as string]: `${track}px` }}>
     <span className="pf-track" aria-hidden="true"><i /></span>
     <ol className="pf">
       {STEPS.map((s, n) => (
