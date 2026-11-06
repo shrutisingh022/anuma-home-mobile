@@ -274,17 +274,12 @@ body { padding-bottom: env(safe-area-inset-bottom, 0px); }
 /* not for online sellers: bigger and bolder */
 .notfit { margin-top: 16px; padding: 20px 20px; border-radius: 20px; font-size: 17px; line-height: 25px; font-weight: 500; color: #fff; letter-spacing: -0.01em; }
 
-/* industries: one card, a 2-column grid of tiles split by hairlines */
-.ind-grid {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 16px; list-style: none; padding: 0;
-  border-radius: 20px; background: #fff; overflow: hidden;
-  box-shadow: 0 0 0 1px rgba(17, 17, 17, 0.08), 0 1px 2px rgba(17, 17, 17, 0.04);
-}
-.ind-grid li {
-  display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px 14px 16px 16px; min-height: 104px;
-  border-top: 1px solid #efefed;
-}
-.ind-grid li:nth-child(-n + 2) { border-top: 0; }
-.ind-grid li:nth-child(odd) { border-right: 1px solid #efefed; }
-.ind-ic { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: #f4f4f2; color: var(--ink); }
-.ind-n { font-size: 14.5px; line-height: 19px; font-weight: 500; color: var(--ink); letter-spacing: -0.005em; }
+/* industries: the first version's two-column cards, icons in the agent tabs' black glass tile */
+.inds { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 18px; }
+.ind { display: flex; flex-direction: column; padding: 14px 14px 14px; border-radius: 16px; background: #fff;
+  box-shadow: 0 0 0 1px rgba(17, 17, 17, 0.07), 0 1px 2px rgba(17, 17, 17, 0.05); }
+.ind-ic { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; color: #fff;
+  background: radial-gradient(80% 60% at 50% 0%, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 70%), #1f1f1f;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 8px 18px -10px rgba(17, 17, 17, 0.55); }
+.ind b { margin-top: 12px; font-size: 15px; line-height: 1.25; font-weight: 600; letter-spacing: -0.015em; color: var(--ink); }
+.ind p { margin-top: 4px; font-size: 13px; line-height: 1.4; color: #71717a; }

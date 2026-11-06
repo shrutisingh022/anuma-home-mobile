@@ -4,32 +4,34 @@ import {
   ChevronDown, Cog, Droplets, Factory, FlaskConical, Gift, Hammer, Package, PlugZap, Ship, Shirt, Smartphone, Wrench, type LucideIcon,
 } from "lucide-react";
 
-// Who it's for: all twelve industries at once, as a two-column grid of tiles inside one card.
-const INDUSTRIES: [LucideIcon, string][] = [
-  [Shirt, "Fabric and textiles"],
-  [Smartphone, "Consumer electronics"],
-  [PlugZap, "Electricals"],
-  [Droplets, "Pumps"],
-  [Hammer, "Die casting"],
-  [Wrench, "Pipes and fittings"],
-  [Cog, "Gears and machining"],
-  [Factory, "Steel and metals"],
-  [FlaskConical, "Pharma and chemicals"],
-  [Ship, "Export and custom goods"],
-  [Gift, "Handcrafted goods"],
-  [Package, "Packaging"],
+// Who it's for, laid out as the first version had it: a two-column grid of cards, each with an
+// icon, the industry and one line. Icons sit in the black glass tile the agent tabs use.
+const INDUSTRIES: [LucideIcon, string, string][] = [
+  [Shirt, "Fabric and textiles", "Swatch photos, shades, rolls and metres"],
+  [Smartphone, "Consumer electronics", "Daily stock to every distributor"],
+  [PlugZap, "Electricals", "Thousands of SKUs, RFQs of 900 lines"],
+  [Droplets, "Pumps", "Specs and drawings in, custom quotes out"],
+  [Hammer, "Die casting", "Part drawings, tooling and repeat orders"],
+  [Wrench, "Pipes and fittings", "Sizes, grades and project tenders"],
+  [Cog, "Gears and machining", "Drawings in, quotes out, fast"],
+  [Factory, "Steel and metals", "Rates that move every day"],
+  [FlaskConical, "Pharma and chemicals", "Grades, batches and repeat orders"],
+  [Ship, "Export and custom goods", "A new product for every enquiry"],
+  [Gift, "Handcrafted goods", "Bulk orders for corporates and stores"],
+  [Package, "Packaging", "Sizes, prints and reorders"],
 ];
 
 export function Industries() {
   return (
-    <ul className="ind-grid" aria-label="Industries">
-      {INDUSTRIES.map(([I, name]) => (
-        <li key={name}>
-          <span className="ind-ic"><I aria-hidden size={18} strokeWidth={1.75} /></span>
-          <span className="ind-n">{name}</span>
-        </li>
+    <div className="inds">
+      {INDUSTRIES.map(([I, name, line]) => (
+        <div className="ind rv" key={name}>
+          <span className="ind-ic"><I aria-hidden size={17} strokeWidth={1.8} /></span>
+          <b>{name}</b>
+          <p>{line}</p>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }
 
