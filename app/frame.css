@@ -305,7 +305,8 @@ body { padding-bottom: env(safe-area-inset-bottom, 0px); }
 /* content under every section head */
 .stats, .feats, .data-list { margin-top: 32px; }
 .stats { gap: 10px; }
-.tm, .tm-wrap { margin-top: 16px; }
+.tm { margin-top: 20px; }
+.faq-list { margin-top: 28px; }
 .at-tabs { margin-top: 32px; }
 .erp { margin-top: 64px; }
 .case-flow { margin-top: 36px; gap: 20px; }
